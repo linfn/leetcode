@@ -1,0 +1,12 @@
+language: cpp
+compiler:
+  - clang
+os:
+  - linux
+
+branches:
+  only:
+    - master
+
+script:
+  - ./test.sh
