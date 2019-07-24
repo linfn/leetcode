@@ -37,14 +37,14 @@ Example 1:
 */
 
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 using std::vector;
 
 namespace unique_paths_ii {
 
 inline namespace v1 {
-// 延续 062 unique paths 中 v3 动态规划的思路
+// 延续 unique paths 中 v3 动态规划的思路
 class Solution {
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
@@ -71,17 +71,19 @@ public:
 } // namespace v1
 
 TEST_CASE("Unique Paths II") {
-    Solution s;
+    TEST_SOLUTION(uniquePathsWithObstacles, v1) {
+        auto v = vector<vector<int>>{
+            {0, 0, 0},
+            {0, 1, 0},
+            {0, 0, 0},
+        };
+        CHECK(uniquePathsWithObstacles(v) == 2);
 
-    auto v = vector<vector<int>>{
-        {0, 0, 0},
-        {0, 1, 0},
-        {0, 0, 0},
+        BENCHMARK("") { return uniquePathsWithObstacles(v); };
+
+        v = vector<vector<int>>{{1}};
+        CHECK(uniquePathsWithObstacles(v) == 0);
     };
-    CHECK(s.uniquePathsWithObstacles(v) == 2);
-
-    v = vector<vector<int>>{{1}};
-    CHECK(s.uniquePathsWithObstacles(v) == 0);
 }
 
 } // namespace unique_paths_ii

@@ -9,7 +9,7 @@ Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`,
 `C`, `D` and `M`.
 
 
-    
+
     Symbol       Value
     I             1
     V             5
@@ -67,7 +67,7 @@ Example 5:
 
 #include <string>
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 using std::string;
 using std::vector;
@@ -130,6 +130,9 @@ public:
 } // namespace v1
 
 inline namespace v2 {
+/*
+直接把所有情况都映射到表中, 避免动态判断, 代码上也简洁许多
+*/
 class Solution {
 public:
     string intToRoman(int num) {
@@ -155,12 +158,15 @@ public:
 } // namespace v2
 
 TEST_CASE("Integer to Roman") {
-    Solution s;
-    CHECK(s.intToRoman(3) == "III");
-    CHECK(s.intToRoman(4) == "IV");
-    CHECK(s.intToRoman(9) == "IX");
-    CHECK(s.intToRoman(58) == "LVIII");
-    CHECK(s.intToRoman(1994) == "MCMXCIV");
+    TEST_SOLUTION(intToRoman, v1, v2) {
+        CHECK(intToRoman(3) == "III");
+        CHECK(intToRoman(4) == "IV");
+        CHECK(intToRoman(9) == "IX");
+        CHECK(intToRoman(58) == "LVIII");
+        CHECK(intToRoman(1994) == "MCMXCIV");
+
+        BENCHMARK("") { return intToRoman(1994); };
+    };
 }
 
 } // namespace integer_to_roman

@@ -72,6 +72,7 @@ content = re.sub(r'(Example(?: \d)?):\s*\n', '\g<1>:\n\n', content)
 
 snippet = next(snip['code']
                for snip in question['codeSnippets'] if snip['langSlug'] == 'cpp')
+test_method = re.search(r'\S+\s+(\S+)\s*\(.*?\)', snippet).group(1)
 
 
 template = f"""
@@ -85,9 +86,7 @@ ___
 {content}
 */
 
-#include "catch.hpp"
-
-using namespace std;
+#include "test.h"
 
 namespace {title_symbol} {{
 
@@ -96,9 +95,11 @@ inline namespace v1 {{
 }} // namespace v1
 
 TEST_CASE("{question['title']}") {{
-    Solution s;
+    TEST_SOLUTION({test_method}, v1) {{
+        {f"/*{question['sampleTestCase']}*/"}
 
-    {f"/*{question['sampleTestCase']}*/"}
+        BENCHMARK(""){{}};
+    }};
 }}
 
 }} // namespace {title_symbol}

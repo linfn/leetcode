@@ -26,7 +26,8 @@ Follow up: Could you improve it to O( n log n ) time complexity?
 
 #include <vector>
 #include <limits>
-#include "catch.hpp"
+
+#include "test.h"
 
 using std::vector;
 
@@ -96,11 +97,15 @@ public:
 } // namespace v2
 
 TEST_CASE("Longest Increasing Subsequence") {
-    Solution s;
-    auto v = vector<int>{10, 9, 2, 5, 3, 7, 101, 18};
-    CHECK(s.lengthOfLIS(v) == 4);
-    v = vector<int>{0};
-    CHECK(s.lengthOfLIS(v) == 1);
+    TEST_SOLUTION(lengthOfLIS, v1, v2) {
+        vector<int> v = {10, 9, 2, 5, 3, 7, 101, 18};
+        CHECK(lengthOfLIS(v) == 4);
+
+        BENCHMARK("") { return lengthOfLIS(v); };
+
+        v = {0};
+        CHECK(lengthOfLIS(v) == 1);
+    };
 }
 
 } // namespace longest_increasing_subsequence

@@ -30,7 +30,7 @@ Example:
 
 #include <vector>
 #include <algorithm>
-#include "catch.hpp"
+#include "test.h"
 
 using std::vector;
 
@@ -63,9 +63,12 @@ public:
 } // namespace v1
 
 TEST_CASE("Container With Most Water") {
-    Solution s;
-    vector<int> v = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    CHECK(s.maxArea(v) == 49);
+    TEST_SOLUTION(maxArea, v1) {
+        vector<int> v = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        CHECK(maxArea(v) == 49);
+
+        BENCHMARK("") { return maxArea(v); };
+    };
 }
 
 } // namespace container_with_most_water

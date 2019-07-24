@@ -26,9 +26,9 @@ Note:
 
   * Only the space character `' '` is considered as whitespace character.
   * Assume we are dealing with an environment which could only store integers
-within the 32-bit signed integer range: [−231,  231 − 1]. If the numerical value
-is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231)
-is returned.
+within the 32-bit signed integer range: [−2^31,  2^31 − 1]. If the numerical
+value is out of the range of representable values, INT_MAX (2^31 − 1) or INT_MIN
+(−2^31) is returned.
 
 Example 1:
 
@@ -64,13 +64,13 @@ Example 5:
     Input:  "-91283472332"
     Output: -2147483648
     Explanation: The number  "-91283472332" is out of the range of a 32-bit
-signed integer. Thefore INT_MIN (−231) is returned.
+signed integer. Thefore INT_MIN (−2^31) is returned.
 */
 
 #include <string>
 #include <map>
 #include <numeric>
-#include "catch.hpp"
+#include "test.h"
 
 using std::map;
 using std::string;
@@ -137,13 +137,16 @@ public:
 } // namespace v1
 
 TEST_CASE("String to Integer (atoi)") {
-    Solution s;
-    CHECK(s.myAtoi("42") == 42);
-    CHECK(s.myAtoi("   -42") == -42);
-    CHECK(s.myAtoi("4193 with words") == 4193);
-    CHECK(s.myAtoi("words and 987") == 0);
-    CHECK(s.myAtoi("-91283472332") == -2147483648);
-    CHECK(s.myAtoi("+-1") == 0);
+    TEST_SOLUTION(myAtoi, v1) {
+        CHECK(myAtoi("42") == 42);
+        CHECK(myAtoi("   -42") == -42);
+        CHECK(myAtoi("4193 with words") == 4193);
+        CHECK(myAtoi("words and 987") == 0);
+        CHECK(myAtoi("-91283472332") == -2147483648);
+        CHECK(myAtoi("+-1") == 0);
+
+        BENCHMARK("") { return myAtoi("-91283472332"); };
+    };
 }
 
 } // namespace string_to_integer_atoi

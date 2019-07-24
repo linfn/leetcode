@@ -13,7 +13,7 @@ Example:
     Input: 3
     Output:
     [
-       [1,null,3,2],
+      [1,null,3,2],
       [3,2,null,1],
       [3,1,null,null,2],
       [2,1,3],
@@ -21,7 +21,7 @@ Example:
     ]
     Explanation:
     The above output corresponds to the 5 unique BST 's shown below:
-    
+
        1         3     3      2      1
         \       /     /      / \      \
          3     2     1      1   3      2
@@ -30,7 +30,7 @@ Example:
 */
 
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 using std::vector;
 
@@ -44,13 +44,17 @@ struct TreeNode {
 };
 
 inline namespace v1 {
+/*
+设 `F(begin, end)` 为解:
+
+1. 当 `begin == end`, 则只有一种方案.
+2. 否则 `F(begin, end) = [F(begin, i) * F(i+1, end) for i in range(begin, end)]`
+*/
 class Solution {
 public:
     vector<TreeNode*> generateTrees(int n) { return step(1, n); }
 
 private:
-    // 这个递归的特点在于, 必须先计算得到子步骤的结果, 才能计算自己当前的结果.
-    // 每一步都返回自己当前所有可能的结果方案.
     vector<TreeNode*> step(int begin, int end) {
         vector<TreeNode*> result;
         for (auto i = begin; i <= end; i++) {
@@ -80,8 +84,11 @@ private:
 
 TEST_CASE("Unique Binary Search Trees II") {
     // TODO 完善 test case
-    Solution s;
-    CHECK(s.generateTrees(3).size() == 5);
+    TEST_SOLUTION(generateTrees, v1) {
+        CHECK(generateTrees(3).size() == 5);
+
+        BENCHMARK("") { return generateTrees(3); };
+    };
 }
 
 } // namespace unique_binary_search_trees_ii

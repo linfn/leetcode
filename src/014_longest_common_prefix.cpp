@@ -31,15 +31,20 @@ All given inputs are in lowercase letters `a-z`.
 
 #include <string>
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 using std::string;
 using std::vector;
 
 namespace longest_common_prefix {
 
-// 该题的解决方案页面提供了非常丰富的不同思路
-// https://leetcode.com/articles/longest-common-prefix/
+/*
+该题的[解决方案页面](https://leetcode.com/articles/longest-common-prefix/)提供了非常丰富的不同思路.
+例如: 用 reduce 的方式
+
+1. LCP(s1...sn) = LCP(LCP(LCP(s1), s2)..., sn)
+2. LCP(s1...sn) = LCP(LCP(s1...sx), LCP(sx+1...sn))
+*/
 
 inline namespace v1 {
 class Solution {
@@ -64,12 +69,14 @@ public:
 } // namespace v1
 
 TEST_CASE("Longest Common Prefix") {
-    Solution s;
+    TEST_SOLUTION(longestCommonPrefix, v1) {
+        vector<string> v = {"flower", "flow", "flight"};
+        CHECK(longestCommonPrefix(v) == "fl");
+        v = {"dog", "racecar", "car"};
+        CHECK(longestCommonPrefix(v) == "");
 
-    vector<string> v = {"flower", "flow", "flight"};
-    CHECK(s.longestCommonPrefix(v) == "fl");
-    v = {"dog", "racecar", "car"};
-    CHECK(s.longestCommonPrefix(v) == "");
+        BENCHMARK("") { return longestCommonPrefix(v); };
+    };
 }
 
 } // namespace longest_common_prefix

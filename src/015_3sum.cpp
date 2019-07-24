@@ -16,7 +16,7 @@ The solution set must not contain duplicate triplets.
 Example:
 
     Given array nums = [-1, 0, 1, 2, -1, -4],
-    
+
     A solution set is:
     [
       [-1, 0, 1],
@@ -26,11 +26,19 @@ Example:
 
 #include <vector>
 #include <algorithm>
-#include "catch.hpp"
+#include "test.h"
 
 using std::vector;
 
 namespace three_sum {
+
+/*
+我一开始的想法是固定住一个数, 然后就转变成一个 two-sum 问题.
+但这样太慢了.
+
+这里重要的一点是先需要对输入做排序, 在有序的基础上能够更高效的查找目标
+(两端往中间逼近).
+*/
 
 namespace v1 {
 // Time Limit Exceeded
@@ -85,6 +93,7 @@ public:
                 if (moveRight) {
                     do {
                         right--;
+                        // 这一部分 while 是为了去除重复值
                     } while (left < right && nums[right] == nums[right + 1]);
                 } else {
                     do {
@@ -99,9 +108,11 @@ public:
 } // namespace v2
 
 TEST_CASE("3Sum") {
-    Solution s;
-    vector<int> v = {-1, 0, 1, 2, -1, -4};
-    CHECK(s.threeSum(v) == vector<vector<int>>({{-1, -1, 2}, {-1, 0, 1}}));
+    TEST_SOLUTION(threeSum, v1, v2) {
+        vector<int> v = {-1, 0, 1, 2, -1, -4};
+        CHECK(threeSum(v) == vector<vector<int>>({{-1, -1, 2}, {-1, 0, 1}}));
+        BENCHMARK("") { return threeSum(v); };
+    };
 }
 
 } // namespace three_sum

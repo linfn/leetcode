@@ -15,7 +15,7 @@ Example:
          2
         /
        3
-    
+
     Output: [1,3,2]
 
 Follow up: Recursive solution is trivial, could you do it iteratively?
@@ -23,7 +23,9 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 #include <vector>
 #include <stack>
-#include "catch.hpp"
+#include <tuple>
+
+#include "test.h"
 
 using std::stack;
 using std::vector;
@@ -65,20 +67,27 @@ class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> result;
+        if (!root) {
+            return result;
+        }
         stack<TreeNode*> st;
-        auto node = root;
-        for (;;) {
-            if (node) {
-                st.push(node);
-                node = node->left;
-            } else {
-                if (st.empty()) {
-                    break;
+        st.push(root);
+        bool goleft = true;
+        while (!st.empty()) {
+            auto cur = st.top();
+            if (goleft) {
+                if (cur->left) {
+                    st.push(cur->left);
+                } else {
+                    goleft = false;
                 }
-                node = st.top();
+            } else {
                 st.pop();
-                result.push_back(node->val);
-                node = node->right;
+                result.push_back(cur->val);
+                if (cur->right) {
+                    st.push(cur->right);
+                    goleft = true;
+                }
             }
         }
         return result;
@@ -86,14 +95,63 @@ public:
 };
 } // namespace v2
 
+namespace v3 {
+/*
+用 stack 来模拟 v1 中的递归调用, 这种方式可以把任何递归都转换为循环.
+但效率上不如 v1 和 v2.
+*/
+class Solution {
+    struct Frame {
+        TreeNode* node;
+        int ret; // 相当于函数返回地址
+    };
+
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> result;
+        stack<Frame> st;
+        st.push(Frame{root, -1});
+        int pc = 0; // 指向下一指令地址, 相当于指令寄存器
+        while (!st.empty()) {
+            switch (pc) {
+            case 0: {
+                if (!st.top().node) {
+                    pc = st.top().ret;
+                    st.pop();
+                } else {
+                    st.push(Frame{st.top().node->left, 1});
+                    pc = 0;
+                }
+            } break;
+            case 1: {
+                result.push_back(st.top().node->val);
+                st.push(Frame{st.top().node->right, 2});
+                pc = 0;
+            } break;
+            case 2: {
+                pc = st.top().ret;
+                st.pop();
+            } break;
+            }
+        }
+        return result;
+    }
+};
+} // namespace v3
+
+USING_MAKE_BINARY_TREE;
+
 TEST_CASE("Binary Tree Inorder Traversal") {
-    Solution s;
-
-    auto root = new TreeNode(3);
-    root->left = new TreeNode(1);
-    root->right = new TreeNode(2);
-
-    CHECK(s.inorderTraversal(root) == vector<int>{1, 3, 2});
+    TEST_SOLUTION(inorderTraversal, v1, v2, v3) {
+        CHECK(inorderTraversal(makeBT({})) == vector<int>{});
+        CHECK(inorderTraversal(makeBT({3, 1, 2})) == vector<int>{1, 3, 2});
+        CHECK(inorderTraversal(makeBT({3, 2, 4, 1, 0, 0, 5})) ==
+              vector<int>{1, 2, 3, 4, 5});
+        
+        BENCHMARK("") {
+            return inorderTraversal(makeBT({3, 2, 4, 1, 0, 0, 5}));
+        };
+    };
 }
 
 } // namespace binary_tree_inorder_traversal

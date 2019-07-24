@@ -11,7 +11,7 @@ around its center).
 For example, this binary tree `[1,2,2,3,4,4,3]` is symmetric:
 
 
-    
+
         1
        / \
       2   2
@@ -24,7 +24,7 @@ For example, this binary tree `[1,2,2,3,4,4,3]` is symmetric:
 But the following `[1,2,2,null,3,null,3]` is not:
 
 
-    
+
         1
        / \
       2   2
@@ -39,7 +39,7 @@ Bonus points if you could solve it both recursively and iteratively.
 */
 
 #include <stack>
-#include "catch.hpp"
+#include "test.h"
 
 using std::stack;
 
@@ -106,18 +106,16 @@ public:
 };
 } // namespace v2
 
+USING_MAKE_BINARY_TREE;
+
 TEST_CASE("Symmetric Tree") {
-    Solution s;
+    TEST_SOLUTION(isSymmetric, v1, v2) {
+        CHECK(isSymmetric(makeBT({1, 2, 2, 3, 4, 4, 3})));
+        CHECK(!isSymmetric(makeBT({1, 2, 2, 0, 3, 0, 3})));
 
-    auto root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(2);
-    root->left->left = new TreeNode(3);
-    root->right->right = new TreeNode(3);
-    root->left->right = new TreeNode(4);
-    root->right->left = new TreeNode(4);
-
-    CHECK(s.isSymmetric(root));
+        auto t = makeBT({1, 2, 2, 3, 4, 4, 3});
+        BENCHMARK("") { return isSymmetric(t); };
+    };
 }
 
 } // namespace symmetric_tree

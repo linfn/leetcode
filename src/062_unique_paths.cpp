@@ -40,13 +40,16 @@ Example 2:
 #include <map>
 #include <tuple>
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 namespace unique_paths {
 
 namespace v1 {
-// 该方案Time Limit Exceeded
-// 组合递推式: C(n,k) = C(n-1,k-1) + C(n-1,k)
+/*
+该方案 Time Limit Exceeded.
+
+组合递推式: `C(n,k) = C(n-1,k-1) + C(n-1,k)`
+*/
 class Solution {
 public:
     int uniquePaths(int m, int n) { return c(m + n - 2, n - 1); }
@@ -89,10 +92,12 @@ private:
 } // namespace v2
 
 namespace v3 {
-// 动态规划
-// 设 dp[i,j] 是到达点 (i,j) 方案总共的可能数,
-// 则 dp[i,j] = dp[i-1,j]+dp[i,j-1]
-// 且 dp[0,j] = 1, dp[i,0] = 1
+/*
+动态规划:
+设 `dp[i,j]` 是到达点 `(i,j)` 方案总共的可能数,
+则 `dp[i,j] = dp[i-1,j]+dp[i,j-1]`,
+且 `dp[0,j] = 1, dp[i,0] = 1`
+*/
 class Solution {
 public:
     int uniquePaths(int m, int n) {
@@ -108,9 +113,12 @@ public:
 } // namespace v3
 
 inline namespace v4 {
-// 在 v3 的基础上优化, 只用一维数组就可以了.
-// 另外, 由于此题等价于组合计数(v1版本), 说明也可以用动态规划的方式来求组合计数
-// 即 C(n,k) = uniquePaths(n-k,k)
+/*
+在 v3 的基础上优化, 只用一维数组就可以了.
+
+另外, 由于此题等价于组合计数(v1版本), 说明也可以用动态规划的方式来求组合计数
+即 `C(n,k) = uniquePaths(n-k,k)`
+*/
 class Solution {
 public:
     int uniquePaths(int m, int n) {
@@ -120,16 +128,21 @@ public:
                 dp[j] = dp[j] + dp[j - 1]; // 和 v3 中等价
             }
         }
-        return dp[n - 1];
+        return dp.back();
     }
 };
 } // namespace v4
 
 TEST_CASE("Unique Paths") {
-    Solution s;
-    CHECK(s.uniquePaths(3, 2) == 3);
-    CHECK(s.uniquePaths(7, 3) == 28);
-    CHECK(s.uniquePaths(51, 9) == 1916797311);
+    TEST_SOLUTION(uniquePaths, v1, v2, v3, v4) {
+        CHECK(uniquePaths(3, 2) == 3);
+        CHECK(uniquePaths(7, 3) == 28);
+        CHECK(uniquePaths(51, 9) == 1916797311);
+
+        if (section != "v1") {
+            BENCHMARK("") { return uniquePaths(51, 9); };
+        }
+    };
 }
 
 } // namespace unique_paths

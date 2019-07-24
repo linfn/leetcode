@@ -20,7 +20,7 @@ Example:
 */
 
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 namespace add_two_numbers {
 
@@ -59,33 +59,23 @@ public:
 };
 } // namespace v1
 
+USING_MAKE_LIST;
+
 TEST_CASE("Add Two Numbers") {
-    Solution s;
+    TEST_SOLUTION(addTwoNumbers, v1) {
+        auto l1 = makeList({1, 2, 3});
+        auto l2 = makeList({7, 8, 9});
 
-    auto newList = [](const std::vector<int>& values) {
-        ListNode *l = nullptr, *cur = nullptr;
-        for (auto v : values) {
-            auto n = new ListNode(v);
-            if (l == nullptr) {
-                l = n;
-            } else {
-                cur->next = n;
-            }
-            cur = n;
+        auto r = addTwoNumbers(l1, l2);
+
+        std::vector<int> v;
+        for (; r; r = r->next) {
+            v.push_back(r->val);
         }
-        return l;
+        CHECK(v == std::vector<int>{8, 0, 3, 1});
+
+        BENCHMARK("") { return addTwoNumbers(l1, l2); };
     };
-
-    auto l1 = newList({1, 2, 3});
-    auto l2 = newList({7, 8, 9});
-
-    auto r = s.addTwoNumbers(l1, l2);
-
-    std::vector<int> v;
-    for (; r; r = r->next) {
-        v.push_back(r->val);
-    }
-    REQUIRE(v == std::vector<int>{8, 0, 3, 1});
 }
 
 } // namespace add_two_numbers

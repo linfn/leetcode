@@ -13,7 +13,7 @@ Example:
     Input: 3
     Output: 5
     Explanation: Given n = 3, there are a total of 5 unique BST 's:
-    
+
        1         3     3      2      1
         \       /     /      / \      \
          3     2     1      1   3      2
@@ -23,7 +23,7 @@ Example:
 
 #include <vector>
 #include <map>
-#include "catch.hpp"
+#include "test.h"
 
 using std::map;
 using std::vector;
@@ -60,13 +60,13 @@ class Solution {
 public:
     int numTrees(int n) {
         map<int, int> record;
-        return calc(n, record);
+        return step(n, record);
     }
 
 private:
     // 套用上面第一个递推公式,
     // record 记录已经计算过的结果, 避免重复计算.
-    int calc(int n, map<int, int>& record) {
+    int step(int n, map<int, int>& record) {
         if (n == 0) {
             return 1;
         }
@@ -76,7 +76,7 @@ private:
         }
         int result = 0;
         for (int i = 0; i < n; i++) {
-            result += calc(i, record) * calc(n - 1 - i, record);
+            result += step(i, record) * step(n - 1 - i, record);
         }
         record[n] = result;
         return result;
@@ -85,9 +85,12 @@ private:
 } // namespace v1
 
 TEST_CASE("Unique Binary Search Trees") {
-    Solution s;
-    CHECK(s.numTrees(3) == 5);
-    CHECK(s.numTrees(19) == 1767263190);
+    TEST_SOLUTION(numTrees, v1) {
+        CHECK(numTrees(3) == 5);
+        CHECK(numTrees(19) == 1767263190);
+
+        BENCHMARK("") { return numTrees(19); };
+    };
 }
 
 } // namespace unique_binary_search_trees

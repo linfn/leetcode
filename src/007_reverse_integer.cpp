@@ -27,14 +27,14 @@ Example 3:
 
 Note:
 Assume we are dealing with an environment which could only store integers
-within the 32-bit signed integer range: [ −231,  231 − 1]. For the purpose of
+within the 32-bit signed integer range: [ −2^31,  2^31 − 1]. For the purpose of
 this problem, assume that your function returns 0 when the reversed integer
 overflows.
 */
 
 #include <numeric>
 
-#include "catch.hpp"
+#include "test.h"
 
 namespace reverse_integer {
 
@@ -72,11 +72,14 @@ public:
 } // namespace v1
 
 TEST_CASE("Reverse Integer") {
-    Solution s;
-    CHECK(s.reverse(123) == 321);
-    CHECK(s.reverse(-123) == -321);
-    CHECK(s.reverse(120) == 21);
-    CHECK(s.reverse(1534236469) == 0);
+    TEST_SOLUTION(reverse, v1) {
+        CHECK(reverse(123) == 321);
+        CHECK(reverse(-123) == -321);
+        CHECK(reverse(120) == 21);
+        CHECK(reverse(1534236469) == 0);
+
+        BENCHMARK("") { return reverse(1534236469); };
+    };
 }
 
 } // namespace reverse_integer

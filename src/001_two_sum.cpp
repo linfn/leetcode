@@ -14,14 +14,14 @@ not use the same element twice.
 Example:
 
     Given nums = [2, 7, 11, 15], target = 9,
-    
+
     Because nums[ 0 ] + nums[ 1 ] = 2 + 7 = 9,
     return [ 0 , 1 ].
 */
 
 #include <vector>
 #include <map>
-#include "catch.hpp"
+#include "test.h"
 
 using std::map;
 using std::vector;
@@ -63,10 +63,12 @@ public:
 } // namespace v2
 
 TEST_CASE("Two Sum") {
-    Solution s;
+    TEST_SOLUTION(twoSum, v1, v2) {
+        vector<int> v = {1, 2, 3};
+        CHECK(twoSum(v, 5) == vector<int>{1, 2});
 
-    vector<int> v = {1, 2, 3};
-    REQUIRE(s.twoSum(v, 5) == vector<int>{1, 2});
+        BENCHMARK("") { return twoSum(v, 5); };
+    };
 }
 
 } // namespace two_sum

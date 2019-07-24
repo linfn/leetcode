@@ -34,7 +34,7 @@ subsequence and not a substring.
 
 #include <string>
 #include <set>
-#include "catch.hpp"
+#include "test.h"
 
 using std::set;
 using std::string;
@@ -42,26 +42,28 @@ using std::string;
 namespace longest_substring_without_repeating_characters {
 
 namespace v1 {
+/*
+首先需要拆解出一个子问题:
+**以第 `i` 开始的最长不重复字符串是什么?**
+
+这之后就是以 `i` 迭代求出最大值的问题了.
+*/
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         int max = 0;
-        for (auto i = 0; i < s.length(); i++) {
-            int length = 0;
-            set<char> record;
-            auto j = i;
+        for (int i = 0; i < s.length(); i++) {
+            set<char> record = {s[i]};
+            int j = i + 1;
             for (; j < s.length(); j++) {
                 if (record.find(s[j]) != record.end()) {
-                    length = j - i;
                     break;
                 }
                 record.insert(s[j]);
             }
-            if (j == s.length()) {
-                length = j - i;
-            }
-            if (length > max) {
-                max = length;
+            int len = j - i;
+            if (len > max) {
+                max = len;
             }
         }
         return max;
@@ -70,68 +72,46 @@ public:
 } // namespace v1
 
 inline namespace v2 {
+/*
+在 v1 版本的思路上继续优化, 有两个优化的点:
+
+1. 重复计算问题: 例如 "abccd...", 算到 "abcc" 时, 下一步应该直接计算 "cd..."
+2. 只要有一个 `j` 走到了结尾, 计算就可以结束, 无需继续迭代 `i`
+*/
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int result = 0;
+        int max = 0;
         int i = 0, j = 0;
         set<char> record;
         while (j < s.length()) {
             if (record.find(s[j]) == record.end()) {
                 record.insert(s[j]);
                 auto l = j - i + 1;
-                if (l > result) {
-                    result = l;
+                if (l > max) {
+                    max = l;
                 }
                 j++;
             } else {
-                // 一旦遇到重复的, 就从头开始往后剔除, 直到把重复的项剔除为止,
-                // 然后继续上面分支里的计数.
+                // 一旦遇到重复的, 就把 i 往后移动,
+                // 直到 i 移动到 j 位置, 就像滑动窗口一样
                 record.erase(s[i]);
                 i++;
-            }
-        }
-        return result;
-    }
-};
-} // namespace v2
-
-namespace v3 {
-// 动态规划思路, 时间上比不过 v2 版本
-class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        if (s.empty()) {
-            return 0;
-        }
-        int n = 1, max = 1;
-        for (auto i = 1; i < s.length(); i++) {
-            auto c = s[i];
-            bool find = false;
-            for (auto j = i - 1; j >= i - n; j--) {
-                if (s[j] == c) {
-                    n = i - j;
-                    find = true;
-                    break;
-                }
-            }
-            if (!find) {
-                n++;
-                if (n > max) {
-                    max = n;
-                }
             }
         }
         return max;
     }
 };
-} // namespace v3
+} // namespace v2
 
 TEST_CASE("Longest Substring Without Repeating Characters") {
-    Solution s;
-    REQUIRE(s.lengthOfLongestSubstring("abcabcbb") == 3);
-    REQUIRE(s.lengthOfLongestSubstring("bbbbb") == 1);
-    REQUIRE(s.lengthOfLongestSubstring("pwwkew") == 3);
+    TEST_SOLUTION(lengthOfLongestSubstring, v1, v2) {
+        CHECK(lengthOfLongestSubstring("abcabcbb") == 3);
+        CHECK(lengthOfLongestSubstring("bbbbb") == 1);
+        CHECK(lengthOfLongestSubstring("pwwkew") == 3);
+
+        BENCHMARK("") { return lengthOfLongestSubstring("abcabcbb"); };
+    };
 }
 
 } // namespace longest_substring_without_repeating_characters

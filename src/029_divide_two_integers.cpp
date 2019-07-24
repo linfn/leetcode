@@ -27,21 +27,28 @@ Note:
   * Both dividend and divisor will be 32-bit signed integers.
   * The divisor will never be 0.
   * Assume we are dealing with an environment which could only store integers
-within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of
-this problem, assume that your function returns 231 − 1 when the division result
-overflows.
+within the 32-bit signed integer range: [−2^31,  2^31 − 1]. For the purpose of
+this problem, assume that your function returns 2^31 − 1 when the division
+result overflows.
 */
 
 #include <tuple>
 #include <limits>
-#include "catch.hpp"
+#include "test.h"
 
 using std::tuple;
 
 namespace divide_two_integers {
 
 namespace v1 {
-// NOTE: 这个版本是不可用的, Time Limit Exceeded.
+/*
+NOTE: 这个版本是不可用的, Time Limit Exceeded.
+
+主要有思路就是: 用减法迭代来模拟除法.
+
+另外, 还有个技巧就是用负数进行计算, 避免溢出产生的问题
+(题目中明确要求只能使用32位有符号的整数类型, 使用 long long 是犯规的).
+*/
 class Solution {
 public:
     int divide(int dividend, int divisor) {
@@ -76,12 +83,10 @@ public:
 } // namespace v1
 
 inline namespace v2 {
-// v1 中由于一个一个减太慢, 所以 v2 就2倍2倍的减
-// 这里主要有两个技巧:
-// 1. 用 加法 + 递归 模拟出 累乘2
-// 2. 用负数进行计算避免溢出产生的问题
-// 另外: 题目中有明确要求只能使用 32 位有符号的整数类型,
-// 所以我看到很多使用 long long 的答案都没有严格遵守这个要求.
+/*
+v1 中由于一个一个减太慢, 所以 v2 就2倍2倍的减.
+主要的技巧是用`加法` + `递归`模拟出`累乘2`.
+*/
 class Solution {
 public:
     int divide(int dividend, int divisor) {
@@ -136,11 +141,14 @@ private:
 } // namespace v2
 
 TEST_CASE("Divide Two Integers") {
-    Solution s;
-    CHECK(s.divide(10, 3) == 3);
-    CHECK(s.divide(7, -3) == -2);
-    CHECK(s.divide(-2147483648, -1) == 2147483647);
-    CHECK(s.divide(-2147483648, 1) == -2147483648);
+    TEST_SOLUTION(divide, v1, v2) {
+        CHECK(divide(10, 3) == 3);
+        CHECK(divide(7, -3) == -2);
+        CHECK(divide(-2147483648, -1) == 2147483647);
+        CHECK(divide(-2147483648, 1) == -2147483648);
+
+        BENCHMARK("") { return divide(-2147483648, -1); };
+    };
 }
 
 } // namespace divide_two_integers

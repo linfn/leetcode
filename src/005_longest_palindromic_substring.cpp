@@ -23,13 +23,19 @@ Example 2:
 
 #include <string>
 #include <tuple>
-#include "catch.hpp"
+#include "test.h"
 
 using std::string;
 
 namespace longest_palindromic_substring {
 
 namespace v1 {
+/*
+分解子问题: **以第 `i` 开始的最长回文是什么?**
+然后再迭代求最大值.
+
+但从开始处来判断回文不是很便利, 所以 v2 中改为从中心处来计算.
+*/
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -65,13 +71,8 @@ private:
 
 inline namespace v2 {
 /*
-回文公理:
-1. 空 是回文
-2. x 是回文
-3. x回文x 是回文
-所以迭代思路就是:
-分别遍历所有“空”形式的(间隔), “x”形式的(单字母) 的初始项,
-再在初始项的基础上借助规则 3, 向外扩展, 找出最长的项.
+分解子问题: **以第 `i` 或 `(i, i+1)`` 为中心的最长回文是什么?**
+然后再迭代求最大值.
 */
 class Solution {
 public:
@@ -108,10 +109,13 @@ private:
 } // namespace v2
 
 TEST_CASE("Longest Palindromic Substring") {
-    Solution s;
-    REQUIRE(s.longestPalindrome("") == "");
-    REQUIRE(s.longestPalindrome("babad") == "bab");
-    REQUIRE(s.longestPalindrome("cbbd") == "bb");
+    TEST_SOLUTION(longestPalindrome, v1, v2) {
+        CHECK(longestPalindrome("") == "");
+        CHECK(longestPalindrome("babad") == "bab");
+        CHECK(longestPalindrome("cbbd") == "bb");
+
+        BENCHMARK("") { return longestPalindrome("cbbd"); };
+    };
 }
 
 } // namespace longest_palindromic_substring

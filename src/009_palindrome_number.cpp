@@ -34,12 +34,16 @@ Follow up:
 Coud you solve it without converting the integer to a string?
 */
 
-#include "catch.hpp"
+#include "test.h"
 
 namespace palindrome_number {
 
 inline namespace v1 {
-// 时间复杂度是 O(log10(n)), 因为迭代时每一次除 10
+/*
+思路是先把数倒过来, 再判断是否和原始的数相等.
+
+时间复杂度是 O(log10(n)), 因为迭代时每一次除 10
+*/
 class Solution {
 public:
     bool isPalindrome(int x) {
@@ -58,12 +62,15 @@ public:
 } // namespace v1
 
 TEST_CASE("Palindrome Number") {
-    Solution s;
-    CHECK(s.isPalindrome(121) == true);
-    CHECK(s.isPalindrome(-121) == false);
-    CHECK(s.isPalindrome(10) == false);
-    CHECK(s.isPalindrome(0) == true);
-    CHECK(s.isPalindrome(21120) == false);
+    TEST_SOLUTION(isPalindrome, v1) {
+        CHECK(isPalindrome(121) == true);
+        CHECK(isPalindrome(-121) == false);
+        CHECK(isPalindrome(10) == false);
+        CHECK(isPalindrome(0) == true);
+        CHECK(isPalindrome(21120) == false);
+
+        BENCHMARK("") { return isPalindrome(21120); };
+    };
 }
 
 } // namespace palindrome_number

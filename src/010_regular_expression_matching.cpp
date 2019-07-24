@@ -70,7 +70,7 @@ Example 5:
 
 #include <string>
 #include <memory>
-#include "catch.hpp"
+#include "test.h"
 
 using std::shared_ptr;
 using std::string;
@@ -149,16 +149,19 @@ private:
 } // namespace v1
 
 TEST_CASE("Regular Expression Matching") {
-    Solution s;
-    CHECK_FALSE(s.isMatch("aa", "a"));
-    CHECK(s.isMatch("aa", "a*"));
-    CHECK(s.isMatch("ab", ".*"));
-    CHECK(s.isMatch("aab", "c*a*b*"));
-    CHECK_FALSE(s.isMatch("mississippi", "mis*is*p*."));
-    CHECK(s.isMatch("aaa", "a*a"));
-    CHECK(s.isMatch("aaa", "ab*a*c*a"));
-    CHECK_FALSE(s.isMatch("ab", ".*c"));
-    CHECK(s.isMatch("a", "ab*"));
+    TEST_SOLUTION(isMatch, v1) {
+        CHECK_FALSE(isMatch("aa", "a"));
+        CHECK(isMatch("aa", "a*"));
+        CHECK(isMatch("ab", ".*"));
+        CHECK(isMatch("aab", "c*a*b*"));
+        CHECK_FALSE(isMatch("mississippi", "mis*is*p*."));
+        CHECK(isMatch("aaa", "a*a"));
+        CHECK(isMatch("aaa", "ab*a*c*a"));
+        CHECK_FALSE(isMatch("ab", ".*c"));
+        CHECK(isMatch("a", "ab*"));
+
+        BENCHMARK("") { return isMatch("aaa", "ab*a*c*a"); };
+    };
 }
 
 } // namespace regular_expression_matching

@@ -24,12 +24,23 @@ Example 2:
 
 #include <string>
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 using std::string;
 using std::vector;
 
 namespace longest_valid_parentheses {
+
+/*
+比较 v1 和 v2 版本,
+首先他们都拆出了一个子问题: 以第 `i` 开始/结束的最长匹配是多少?
+然后都是迭代求最值.
+
+v2 动态规划思路的区别于 v1 就在于对子问题的解决上.
+动态规划使用递归定义的方式定义了子问题的解,
+使每一步的计算都转换为了在之前计算结果基础之上的增量计算.
+通过缓存每一步的计算结果就可以避免重复计算.
+*/
 
 namespace v1 {
 class Solution {
@@ -37,9 +48,9 @@ public:
     int longestValidParentheses(string s) {
         int max = 0;
         for (int i = 0; i < s.length(); i++) {
-            auto cnt = longest(s, i);
-            if (cnt > max) {
-                max = cnt;
+            auto len = longest(s, i);
+            if (len > max) {
+                max = len;
             }
         }
         return max;
@@ -47,7 +58,7 @@ public:
 
 private:
     int longest(string s, int i) {
-        int cnt = 0, sum = 0, cur = 0;
+        int len = 0, sum = 0, cur = 0;
         for (; i < s.length(); i++) {
             int c = s[i] == '(' ? 1 : -1;
             if (sum + c < 0) {
@@ -56,10 +67,10 @@ private:
             sum += c;
             cur++;
             if (sum == 0) {
-                cnt = cur;
+                len = cur;
             }
         }
-        return cnt;
+        return len;
     }
 };
 } // namespace v1
@@ -78,34 +89,39 @@ inline namespace v2 {
 class Solution {
 public:
     int longestValidParentheses(string s) {
-        vector<int> vdp(s.size(), 0);
-        auto dp = [&vdp](int i) { return i < 0 ? 0 : vdp[i]; };
-        auto ss = [&s](int i) { return i < 0 ? '_' : s[i]; };
-        int result = 0;
+        vector<int> record(s.size(), 0);
+        const auto dp = [&record](int i) { return i < 0 ? 0 : record[i]; };
+        const auto str = [&s](int i) { return i < 0 ? '_' : s[i]; };
+        int max = 0;
         for (int i = 1; i < s.length(); i++) {
-            if (ss(i) == ')') {
-                if (ss(i - 1) == '(') {
-                    vdp[i] = dp(i - 2) + 2;
+            if (str(i) == ')') {
+                if (str(i - 1) == '(') {
+                    record[i] = dp(i - 2) + 2;
                 } else {
-                    if (ss(i - dp(i - 1) - 1) == '(') {
-                        vdp[i] = dp(i - 1) + dp(i - dp(i - 1) - 2) + 2;
+                    if (str(i - dp(i - 1) - 1) == '(') {
+                        record[i] = dp(i - 1) + dp(i - dp(i - 1) - 2) + 2;
                     }
                 }
             }
-            if (dp(i) > result) {
-                result = dp(i);
+            if (dp(i) > max) {
+                max = dp(i);
             }
         }
-        return result;
+        return max;
     }
 };
 } // namespace v2
 
 TEST_CASE("Longest Valid Parentheses") {
-    Solution s;
-    CHECK(s.longestValidParentheses("(()") == 2);
-    CHECK(s.longestValidParentheses(")()())") == 4);
-    CHECK(s.longestValidParentheses(")(((((()())()()))()(()))(") == 22);
+    TEST_SOLUTION(longestValidParentheses, v1, v2) {
+        CHECK(longestValidParentheses("(()") == 2);
+        CHECK(longestValidParentheses(")()())") == 4);
+        CHECK(longestValidParentheses(")(((((()())()()))()(()))(") == 22);
+
+        BENCHMARK("") {
+            return longestValidParentheses(")(((((()())()()))()(()))(");
+        };
+    };
 }
 
 } // namespace longest_valid_parentheses

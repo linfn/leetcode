@@ -16,7 +16,7 @@ Example 1:
 
     nums1 = [1, 3]
     nums2 = [2]
-    
+
     The median is 2.0
 
 
@@ -24,13 +24,13 @@ Example 2:
 
     nums1 = [1, 2]
     nums2 = [3, 4]
-    
+
     The median is (2 + 3)/2 = 2.5
 */
 
 #include <vector>
 #include <algorithm>
-#include "catch.hpp"
+#include "test.h"
 
 using std::sort;
 using std::vector;
@@ -38,16 +38,32 @@ using std::vector;
 namespace median_of_two_sorted_arrays {
 
 inline namespace v1 {
+/*
+这个方案的思路是两个有序数组的排序, 但不符合 O(log (m+n)) 的要求
+*/
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        nums1.insert(nums1.end(), nums2.begin(), nums2.end());
-        sort(nums1.begin(), nums1.end());
-        if (nums1.size() % 2 == 1) {
-            return nums1[nums1.size() / 2];
+        int n1, n2;
+        const auto push = [&](int n) {
+            n1 = n2;
+            n2 = n;
+        };
+        int size = (nums1.size() + nums2.size()) / 2 + 1;
+        for (int i = 0, j = 0; i + j < size;) {
+            if (j >= nums2.size() ||
+                (i < nums1.size() && nums1[i] < nums2[j])) {
+                push(nums1[i]);
+                i++;
+            } else {
+                push(nums2[j]);
+                j++;
+            }
+        }
+        if ((nums1.size() + nums2.size()) % 2 == 1) {
+            return n2;
         } else {
-            auto sum = nums1[nums1.size() / 2 - 1] + nums1[nums1.size() / 2];
-            return sum / 2.0;
+            return (n1 + n2) / 2.0;
         }
     }
 };
@@ -56,15 +72,16 @@ public:
 // TODO 更好的解决方案
 
 TEST_CASE("Median of Two Sorted Arrays") {
-    Solution s;
+    TEST_SOLUTION(findMedianSortedArrays, v1) {
+        vector<int> nums1 = {1, 3}, nums2 = {2};
+        CHECK(findMedianSortedArrays(nums1, nums2) == 2.0);
+        nums1 = {2}, nums2 = {};
+        CHECK(findMedianSortedArrays(nums1, nums2) == 2.0);
+        nums1 = {1, 2}, nums2 = {3, 4};
+        CHECK(findMedianSortedArrays(nums1, nums2) == (2 + 3) / 2.0);
 
-    auto nums1 = vector<int>{1, 3};
-    auto nums2 = vector<int>{2};
-    REQUIRE(s.findMedianSortedArrays(nums1, nums2) == 2.0);
-
-    nums1 = vector<int>{1, 2};
-    nums2 = vector<int>{3, 4};
-    REQUIRE(s.findMedianSortedArrays(nums1, nums2) == (2 + 3) / 2.0);
+        BENCHMARK("") { return findMedianSortedArrays(nums1, nums2); };
+    };
 }
 
 } // namespace median_of_two_sorted_arrays

@@ -30,7 +30,7 @@ Example 2:
 */
 
 #include <vector>
-#include "catch.hpp"
+#include "test.h"
 
 using std::vector;
 
@@ -77,11 +77,14 @@ private:
 } // namespace v1
 
 TEST_CASE("Search in Rotated Sorted Array") {
-    Solution s;
-    vector<int> v{4, 5, 6, 7, 0, 1, 2};
-    CHECK(s.search(v, 0) == 4);
-    v = vector<int>{4, 5, 6, 7, 0, 1, 2};
-    CHECK(s.search(v, 3) == -1);
+    TEST_SOLUTION(search, v1) {
+        vector<int> v{4, 5, 6, 7, 0, 1, 2};
+        CHECK(search(v, 0) == 4);
+        v = vector<int>{4, 5, 6, 7, 0, 1, 2};
+        CHECK(search(v, 3) == -1);
+
+        BENCHMARK("") { return search(v, 3); };
+    };
 }
 
 } // namespace search_in_rotated_sorted_array

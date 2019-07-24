@@ -13,14 +13,14 @@ solution.
 Example:
 
     Given array nums = [-1, 2, 1, -4], and target = 1.
-    
+
     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 */
 
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include "catch.hpp"
+#include "test.h"
 
 using std::vector;
 
@@ -60,11 +60,14 @@ public:
 } // namespace v1
 
 TEST_CASE("3Sum Closest") {
-    Solution s;
-    vector<int> v{-1, 2, 1, -4};
-    CHECK(s.threeSumClosest(v, 1) == 2);
-    v = {1, 2, 5, 10, 11};
-    CHECK(s.threeSumClosest(v, 12) == 13);
+    TEST_SOLUTION(threeSumClosest, v1) {
+        vector<int> v{-1, 2, 1, -4};
+        CHECK(threeSumClosest(v, 1) == 2);
+        v = {1, 2, 5, 10, 11};
+        CHECK(threeSumClosest(v, 12) == 13);
+
+        BENCHMARK("") { return threeSumClosest(v, 12); };
+    };
 }
 
 } // namespace three_sum_closest
