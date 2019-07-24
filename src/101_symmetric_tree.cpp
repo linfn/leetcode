@@ -115,6 +115,7 @@ TEST_CASE("Symmetric Tree") {
 
         auto t = makeBT({1, 2, 2, 3, 4, 4, 3});
         BENCHMARK("") { return isSymmetric(t); };
+        freeTree(t);
     };
 }
 

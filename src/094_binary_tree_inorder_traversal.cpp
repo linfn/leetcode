@@ -147,10 +147,10 @@ TEST_CASE("Binary Tree Inorder Traversal") {
         CHECK(inorderTraversal(makeBT({3, 1, 2})) == vector<int>{1, 3, 2});
         CHECK(inorderTraversal(makeBT({3, 2, 4, 1, 0, 0, 5})) ==
               vector<int>{1, 2, 3, 4, 5});
-        
-        BENCHMARK("") {
-            return inorderTraversal(makeBT({3, 2, 4, 1, 0, 0, 5}));
-        };
+
+        auto t = makeBT({3, 2, 4, 1, 0, 0, 5});
+        BENCHMARK("") { return inorderTraversal(t); };
+        freeTree(t);
     };
 }
 

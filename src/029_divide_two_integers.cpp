@@ -147,7 +147,7 @@ TEST_CASE("Divide Two Integers") {
         CHECK(divide(-2147483648, -1) == 2147483647);
         CHECK(divide(-2147483648, 1) == -2147483648);
 
-        BENCHMARK("") { return divide(-2147483648, -1); };
+        BENCHMARK("") { return divide(10, 3); };
     };
 }
 
