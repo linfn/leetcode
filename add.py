@@ -72,7 +72,8 @@ content = re.sub(r'(Example(?: \d)?):\s*\n', '\g<1>:\n\n', content)
 
 snippet = next(snip['code']
                for snip in question['codeSnippets'] if snip['langSlug'] == 'cpp')
-test_method = re.search(r'\S+\s+(\S+)\s*\(.*?\)', snippet).group(1)
+test_method = re.search(
+    r'Solution(?:.|\n)*\S+\s+(\S+)\s*\(.*?\)', snippet).group(1)
 
 
 template = f"""

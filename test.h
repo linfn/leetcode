@@ -90,6 +90,28 @@ public:
             cur = n;                                                           \
         }                                                                      \
         return l;                                                              \
+    }                                                                          \
+    void freeList(ListNode* l) {                                               \
+        while (l) {                                                            \
+            auto next = l->next;                                               \
+            delete l;                                                          \
+            l = next;                                                          \
+        }                                                                      \
+    }                                                                          \
+    bool listEqual(ListNode* lhs, ListNode* rhs) {                             \
+        if (lhs == rhs) {                                                      \
+            return true;                                                       \
+        }                                                                      \
+        for (; !lhs && !rhs; lhs = lhs->next, rhs = rhs->next) {               \
+            if (lhs && rhs) {                                                  \
+                if (lhs->val != rhs->val) {                                    \
+                    return false;                                              \
+                }                                                              \
+            } else {                                                           \
+                return false;                                                  \
+            }                                                                  \
+        }                                                                      \
+        return true;                                                           \
     }
 
 #define USING_MAKE_BINARY_TREE                                                 \
@@ -116,4 +138,12 @@ public:
             list.push_back(parent->right);                                     \
         }                                                                      \
         return root;                                                           \
+    }                                                                          \
+    void freeTree(TreeNode* tree) {                                            \
+        if (!tree) {                                                           \
+            return;                                                            \
+        }                                                                      \
+        freeTree(tree->left);                                                  \
+        freeTree(tree->right);                                                 \
+        delete tree;                                                           \
     }
