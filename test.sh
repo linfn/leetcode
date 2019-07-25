@@ -6,13 +6,15 @@ if [ -z $CXX ]; then
     CXX=clang++
 fi
 
-while getopts "b" flag; do
+while getopts "bl" flag; do
     case "$flag" in
     b) BENCH="-DCATCH_CONFIG_ENABLE_BENCHMARKING" ;;
+    l) USE_LAST_FILE=true ;;
     esac
 done
-
-if [ $(($# - $OPTIND + 1)) -gt 0 ]; then
+if [ "$USE_LAST_FILE" == true ]; then
+    files=$(ls -t src/*.cpp | head -1)
+elif [ $(($# - $OPTIND + 1)) -gt 0 ]; then
     files=${@:$OPTIND:$(($# - $OPTIND + 1))}
 else
     files=src/*.cpp
