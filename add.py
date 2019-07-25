@@ -60,9 +60,9 @@ resp = requests.post(
 assert resp.status_code >= 200 and resp.status_code < 300
 
 question = resp.json()['data']['question']
-# print(json.dumps(question, indent=4))
+#print(json.dumps(question, indent=4))
 
-title_symbol = question['title'].lower().replace(' ', '_')
+title_symbol = question['titleSlug'].lower().replace('-', '_')
 
 h2t = html2text.HTML2Text()
 h2t.strong_mark = ''
