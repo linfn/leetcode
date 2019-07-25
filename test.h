@@ -8,12 +8,21 @@
 
 #ifndef CATCH_CONFIG_ENABLE_BENCHMARKING
 #define BENCHMARK(...)                                                         \
-    if (false)                                                                 \
-    auto _ = [&]()
+    if (test::detail::IgnoreUnused _{})                                        \
+    _ = [&]()
 #endif
 
 namespace test {
 namespace detail {
+
+class IgnoreUnused {
+public:
+    template <typename T>
+    IgnoreUnused& operator=(T&& f) {
+        return *this;
+    }
+    explicit operator bool() { return false; }
+};
 
 template <typename Fun>
 struct Solution {

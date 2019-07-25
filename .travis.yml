@@ -9,4 +9,5 @@ branches:
     - master
 
 script:
-  - ./test.sh
+  - ./test.sh -c
+  - bash <(curl -s https://codecov.io/bash)

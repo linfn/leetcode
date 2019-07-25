@@ -2,14 +2,15 @@
 
 set -e
 
-if [ -z $CXX ]; then
+if [ -z "$CXX" ]; then
     CXX=clang++
 fi
 
-while getopts "bl" flag; do
+while getopts "blc" flag; do
     case "$flag" in
     b) BENCH="-DCATCH_CONFIG_ENABLE_BENCHMARKING" ;;
     l) USE_LAST_FILE=true ;;
+    c) COVERAGE="-fprofile-instr-generate -fcoverage-mapping" ;;
     esac
 done
 if [ "$USE_LAST_FILE" == true ]; then
@@ -20,5 +21,12 @@ else
     files=src/*.cpp
 fi
 
-$CXX --std=c++14 -g -o a.out $BENCH -I. main.cpp $files
-./a.out
+$CXX --std=c++14 -g -Wall $COVERAGE $BENCH -I. main.cpp $files -o a.out
+if [ -z "$COVERAGE" ]; then
+    ./a.out
+else
+    LLVM_PROFILE_FILE=a.profraw ./a.out
+    llvm-profdata merge -sparse a.profraw -o a.profdata
+    llvm-cov show ./a.out -instr-profile=a.profdata >coverage.txt
+    llvm-cov report ./a.out -instr-profile=a.profdata
+fi

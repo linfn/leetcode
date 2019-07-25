@@ -33,3 +33,7 @@
 
 *.dSYM
 .vscode/settings.json
+
+*.profdata
+*.profraw
+*coverage.txt
