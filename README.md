@@ -2,7 +2,8 @@
 
 LeetCode solutions in C++.
 
-![Build Status](https://travis-ci.com/linfn/leetcode.svg?branch=master)
+[![Build Status](https://travis-ci.com/linfn/leetcode.svg?branch=master)](https://travis-ci.com/linfn/leetcode)
+[![codecov](https://codecov.io/gh/linfn/leetcode/branch/master/graph/badge.svg)](https://codecov.io/gh/linfn/leetcode)
 
 ## My favorite problems
 
