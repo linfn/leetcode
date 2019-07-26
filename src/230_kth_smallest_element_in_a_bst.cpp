@@ -43,15 +43,13 @@ routine?
 
 #include "test.h"
 
-using namespace std;
-
 namespace kth_smallest_element_in_a_bst {
 
 struct TreeNode {
     int val;
     TreeNode* left;
     TreeNode* right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
 inline namespace v1 {

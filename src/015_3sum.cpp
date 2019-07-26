@@ -28,6 +28,8 @@ Example:
 #include <algorithm>
 #include "test.h"
 
+using std::lower_bound;
+using std::sort;
 using std::vector;
 
 namespace three_sum {
@@ -51,11 +53,10 @@ public:
                 for (int k = j + 1; k < nums.size(); k++) {
                     if (nums[i] + nums[j] + nums[k] == 0) {
                         vector<int> v{nums[i], nums[j], nums[k]};
-                        std::sort(v.begin(), v.end());
-                        auto it =
-                            std::lower_bound(result.begin(), result.end(), v);
+                        sort(v.begin(), v.end());
+                        auto it = lower_bound(result.begin(), result.end(), v);
                         if (it == result.end() || *it != v) {
-                            result.insert(it, std::move(v));
+                            result.insert(it, move(v));
                         }
                     }
                 }
@@ -71,7 +72,7 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         // 排序后, 固定三元组最左侧的一个数字, 然后让右侧的数组两端往中间逼近.
-        std::sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end());
         vector<vector<int>> result;
         for (int i = 0; i < nums.size(); i++) {
             if (i > 0) {

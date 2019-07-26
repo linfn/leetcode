@@ -25,7 +25,10 @@ Example 2:
 #include <tuple>
 #include "test.h"
 
+using std::get;
+using std::make_tuple;
 using std::string;
+using std::tuple;
 
 namespace longest_palindromic_substring {
 
@@ -80,25 +83,25 @@ public:
         int pos = 0, length = 0;
         for (auto i = 0; i < s.length(); i++) {
             auto r = longest(s, i, i);
-            if (std::get<1>(r) > length) {
-                pos = std::get<0>(r);
-                length = std::get<1>(r);
+            if (get<1>(r) > length) {
+                pos = get<0>(r);
+                length = get<1>(r);
             }
             r = longest(s, i, i + 1);
-            if (std::get<1>(r) > length) {
-                pos = std::get<0>(r);
-                length = std::get<1>(r);
+            if (get<1>(r) > length) {
+                pos = get<0>(r);
+                length = get<1>(r);
             }
         }
         return s.substr(pos, length);
     }
 
 private:
-    std::tuple<int, int> longest(const string& s, int i, int j) const {
-        auto r = std::make_tuple(0, 0);
+    tuple<int, int> longest(const string& s, int i, int j) const {
+        auto r = make_tuple(0, 0);
         for (; i >= 0 && j < s.length(); i--, j++) {
             if (s[i] == s[j]) {
-                r = std::make_tuple(i, j - i + 1);
+                r = make_tuple(i, j - i + 1);
             } else {
                 break;
             }

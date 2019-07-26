@@ -62,17 +62,19 @@ public:
 USING_MAKE_LIST;
 
 TEST_CASE("Add Two Numbers") {
+    using std::vector;
+
     TEST_SOLUTION(addTwoNumbers, v1) {
         auto l1 = makeList({1, 2, 3});
         auto l2 = makeList({7, 8, 9});
 
         auto r = addTwoNumbers(l1, l2);
 
-        std::vector<int> v;
+        vector<int> v;
         for (; r; r = r->next) {
             v.push_back(r->val);
         }
-        CHECK(v == std::vector<int>{8, 0, 3, 1});
+        CHECK(v == vector<int>{8, 0, 3, 1});
 
         BENCHMARK("") { return addTwoNumbers(l1, l2); };
     };

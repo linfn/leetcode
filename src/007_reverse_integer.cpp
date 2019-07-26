@@ -36,14 +36,16 @@ overflows.
 
 #include "test.h"
 
+using std::numeric_limits;
+
 namespace reverse_integer {
 
 inline namespace v1 {
 class Solution {
-    static const auto minHead = std::numeric_limits<int>::min() / 10;
-    static const auto minTail = std::numeric_limits<int>::min() % 10;
-    static const auto maxHead = std::numeric_limits<int>::max() / 10;
-    static const auto maxTail = std::numeric_limits<int>::max() % 10;
+    static const auto minHead = numeric_limits<int>::min() / 10;
+    static const auto minTail = numeric_limits<int>::min() % 10;
+    static const auto maxHead = numeric_limits<int>::max() / 10;
+    static const auto maxTail = numeric_limits<int>::max() % 10;
 
 public:
     int reverse(int x) {

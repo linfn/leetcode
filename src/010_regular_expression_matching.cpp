@@ -72,6 +72,7 @@ Example 5:
 #include <memory>
 #include "test.h"
 
+using std::make_shared;
 using std::shared_ptr;
 using std::string;
 
@@ -90,7 +91,7 @@ public:
                 }
                 continue;
             }
-            auto state = std::make_shared<State>(p[i]);
+            auto state = make_shared<State>(p[i]);
             if (cur) {
                 cur->next_ = state;
             } else {

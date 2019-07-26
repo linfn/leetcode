@@ -49,7 +49,7 @@ class Solution {
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int m = obstacleGrid.size(), n = obstacleGrid.front().size();
-        vector<std::vector<int>> dp(m, vector<int>(n));
+        vector<vector<int>> dp(m, vector<int>(n));
         for (auto i = 0; i < m; i++) {
             for (auto j = 0; j < n; j++) {
                 if (obstacleGrid[i][j] == 1) {

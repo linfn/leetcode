@@ -73,6 +73,7 @@ signed integer. Thefore INT_MIN (−2^31) is returned.
 #include "test.h"
 
 using std::map;
+using std::numeric_limits;
 using std::string;
 
 namespace string_to_integer_atoi {
@@ -85,10 +86,10 @@ public:
             {'0', 0}, {'1', 1}, {'2', 2}, {'3', 3}, {'4', 4},
             {'5', 5}, {'6', 6}, {'7', 7}, {'8', 8}, {'9', 9},
         };
-        static const auto minHead = std::numeric_limits<int>::min() / 10;
-        static const auto minTail = std::numeric_limits<int>::min() % 10;
-        static const auto maxHead = std::numeric_limits<int>::max() / 10;
-        static const auto maxTail = std::numeric_limits<int>::max() % 10;
+        static const auto minHead = numeric_limits<int>::min() / 10;
+        static const auto minTail = numeric_limits<int>::min() % 10;
+        static const auto maxHead = numeric_limits<int>::max() / 10;
+        static const auto maxTail = numeric_limits<int>::max() % 10;
 
         auto i = str.find_first_not_of(' ');
         if (i == string::npos) {
@@ -114,18 +115,18 @@ public:
             if (result <= minHead) {
                 if (result == minHead) {
                     if (delta < minTail) {
-                        return std::numeric_limits<int>::min();
+                        return numeric_limits<int>::min();
                     }
                 } else {
-                    return std::numeric_limits<int>::min();
+                    return numeric_limits<int>::min();
                 }
             } else if (result >= maxHead) {
                 if (result == maxHead) {
                     if (delta > maxTail) {
-                        return std::numeric_limits<int>::max();
+                        return numeric_limits<int>::max();
                     }
                 } else {
-                    return std::numeric_limits<int>::max();
+                    return numeric_limits<int>::max();
                 }
             }
             result = result * 10 + delta;

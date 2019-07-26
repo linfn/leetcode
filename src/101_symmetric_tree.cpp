@@ -111,7 +111,7 @@ USING_MAKE_BINARY_TREE;
 TEST_CASE("Symmetric Tree") {
     TEST_SOLUTION(isSymmetric, v1, v2) {
         CHECK(isSymmetric(makeBT({1, 2, 2, 3, 4, 4, 3})));
-        CHECK(!isSymmetric(makeBT({1, 2, 2, 0, 3, 0, 3})));
+        CHECK_FALSE(isSymmetric(makeBT({1, 2, 2, 0, 3, 0, 3})));
 
         auto t = makeBT({1, 2, 2, 3, 4, 4, 3});
         BENCHMARK("") { return isSymmetric(t); };

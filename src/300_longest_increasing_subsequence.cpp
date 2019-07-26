@@ -29,6 +29,7 @@ Follow up: Could you improve it to O( n log n ) time complexity?
 
 #include "test.h"
 
+using std::numeric_limits;
 using std::vector;
 
 namespace longest_increasing_subsequence {
@@ -38,7 +39,7 @@ namespace v1 {
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        return step(nums, 0, std::numeric_limits<int>::min());
+        return step(nums, 0, numeric_limits<int>::min());
     }
 
 private:

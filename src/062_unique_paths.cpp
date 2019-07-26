@@ -40,7 +40,14 @@ Example 2:
 #include <map>
 #include <tuple>
 #include <vector>
+
 #include "test.h"
+
+using std::get;
+using std::make_tuple;
+using std::map;
+using std::tuple;
+using std::vector;
 
 namespace unique_paths {
 
@@ -74,18 +81,18 @@ public:
     }
 
 private:
-    typedef std::map<std::tuple<int, int>, int> Record;
+    typedef map<tuple<int, int>, int> Record;
     int c(Record& record, int n, int k) {
         if (n == k || k == 0) {
             return 1;
         }
-        auto iter = record.find(std::make_tuple(n, k));
+        auto iter = record.find(make_tuple(n, k));
         if (iter != record.end()) {
             return iter->second;
         }
         auto z = c(record, n - 1, k - 1) + c(record, n - 1, k);
-        record[std::make_tuple(n, k)] = z;
-        record[std::make_tuple(n, n - k)] = z;
+        record[make_tuple(n, k)] = z;
+        record[make_tuple(n, n - k)] = z;
         return z;
     }
 };
@@ -101,7 +108,7 @@ namespace v3 {
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        std::vector<std::vector<int>> dp(m, std::vector<int>(n, 1));
+        vector<vector<int>> dp(m, vector<int>(n, 1));
         for (auto i = 1; i < m; i++) {
             for (auto j = 1; j < n; j++) {
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
@@ -122,7 +129,7 @@ inline namespace v4 {
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        std::vector<int> dp(n, 1);
+        vector<int> dp(n, 1);
         for (auto i = 1; i < m; i++) {     // 逐行
             for (auto j = 1; j < n; j++) { // 逐列
                 dp[j] = dp[j] + dp[j - 1]; // 和 v3 中等价

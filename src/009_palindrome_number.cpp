@@ -63,11 +63,11 @@ public:
 
 TEST_CASE("Palindrome Number") {
     TEST_SOLUTION(isPalindrome, v1) {
-        CHECK(isPalindrome(121) == true);
-        CHECK(isPalindrome(-121) == false);
-        CHECK(isPalindrome(10) == false);
-        CHECK(isPalindrome(0) == true);
-        CHECK(isPalindrome(21120) == false);
+        CHECK(isPalindrome(121));
+        CHECK_FALSE(isPalindrome(-121));
+        CHECK_FALSE(isPalindrome(10));
+        CHECK(isPalindrome(0));
+        CHECK_FALSE(isPalindrome(21120));
 
         BENCHMARK("") { return isPalindrome(21120); };
     };

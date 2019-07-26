@@ -42,7 +42,7 @@ using std::string;
 
 namespace implement_strstr {
 
-namespace v1 {
+inline namespace v1 {
 class Solution {
 public:
     int strStr(string haystack, string needle) {

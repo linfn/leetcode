@@ -32,7 +32,8 @@ Note:
 
 #include "test.h"
 
-using namespace std;
+using std::swap;
+using std::vector;
 
 namespace maximum_swap {
 

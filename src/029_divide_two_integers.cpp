@@ -36,6 +36,9 @@ result overflows.
 #include <limits>
 #include "test.h"
 
+using std::get;
+using std::make_tuple;
+using std::numeric_limits;
 using std::tuple;
 
 namespace divide_two_integers {
@@ -73,8 +76,8 @@ public:
         if (s1 ^ s2) {
             return result;
         } else {
-            if (result == std::numeric_limits<int>::min()) {
-                return std::numeric_limits<int>::max();
+            if (result == numeric_limits<int>::min()) {
+                return numeric_limits<int>::max();
             }
             return -result;
         }
@@ -103,9 +106,9 @@ public:
         int result = 0;
         for (;;) {
             auto r = getMax(dividend, divisor, -1);
-            if (std::get<2>(r)) {
-                dividend -= std::get<0>(r);
-                result += std::get<1>(r);
+            if (get<2>(r)) {
+                dividend -= get<0>(r);
+                result += get<1>(r);
             } else {
                 break;
             }
@@ -115,8 +118,8 @@ public:
         } else {
             // 注意 -(负数最小值) 的值是不变的, 仍然是负数最小值,
             // 所以这里需要判断一下
-            if (result == std::numeric_limits<int>::min()) {
-                return std::numeric_limits<int>::max();
+            if (result == numeric_limits<int>::min()) {
+                return numeric_limits<int>::max();
             }
             return -result;
         }
@@ -126,16 +129,16 @@ private:
     // 输入均为负数
     tuple<int, int, bool> getMax(int dividend, int divisor, int n) {
         if (dividend > divisor) {
-            return std::make_tuple(0, 0, false);
+            return make_tuple(0, 0, false);
         }
         auto dd = divisor + divisor;
         if (dd < 0) { // 判断没有溢出
             auto r = getMax(dividend, dd, n + n);
-            if (std::get<2>(r)) {
+            if (get<2>(r)) {
                 return r;
             }
         }
-        return std::make_tuple(divisor, n, true);
+        return make_tuple(divisor, n, true);
     }
 };
 } // namespace v2

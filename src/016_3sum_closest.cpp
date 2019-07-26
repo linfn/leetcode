@@ -22,6 +22,9 @@ Example:
 #include <cmath>
 #include "test.h"
 
+using std::abs;
+using std::numeric_limits;
+using std::sort;
 using std::vector;
 
 namespace three_sum_closest {
@@ -33,8 +36,8 @@ public:
         // 这里可以稍微改一下,
         // 由于最初没有可以比较的值, 所以这里用了int max来替代,
         // 更好是直接使用 target - nums[0] - nums[1] - nums[2]来替代
-        int diff = std::numeric_limits<int>::max();
-        std::sort(nums.begin(), nums.end());
+        int diff = numeric_limits<int>::max();
+        sort(nums.begin(), nums.end());
         for (int i = 0; i < nums.size(); i++) {
             int a = target - nums[i];
             int left = i + 1, right = nums.size() - 1;
@@ -49,7 +52,7 @@ public:
                         right--;
                     }
                 }
-                if (std::abs(diff) > std::abs(b)) {
+                if (abs(diff) > abs(b)) {
                     diff = b;
                 }
             }

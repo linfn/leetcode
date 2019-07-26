@@ -95,11 +95,11 @@ public:
 
 TEST_CASE("Valid Parentheses") {
     TEST_SOLUTION(isValid, v1) {
-        CHECK(isValid("()") == true);
-        CHECK(isValid("()[]{}") == true);
-        CHECK(isValid("(]") == false);
-        CHECK(isValid("([)]") == false);
-        CHECK(isValid("{[]}") == true);
+        CHECK(isValid("()"));
+        CHECK(isValid("()[]{}"));
+        CHECK_FALSE(isValid("(]"));
+        CHECK_FALSE(isValid("([)]"));
+        CHECK(isValid("{[]}"));
 
         BENCHMARK("") { return isValid("{[()]}"); };
     };
