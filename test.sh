@@ -13,6 +13,7 @@ while getopts "blc" flag; do
     c) COVERAGE="-fprofile-instr-generate -fcoverage-mapping" ;;
     esac
 done
+
 if [ "$USE_LAST_FILE" == true ]; then
     files=$(ls -t src/*.cpp | head -1)
 elif [ $(($# - $OPTIND + 1)) -gt 0 ]; then

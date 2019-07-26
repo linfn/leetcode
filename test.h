@@ -111,16 +111,12 @@ public:
         if (lhs == rhs) {                                                      \
             return true;                                                       \
         }                                                                      \
-        for (; !lhs && !rhs; lhs = lhs->next, rhs = rhs->next) {               \
-            if (lhs && rhs) {                                                  \
-                if (lhs->val != rhs->val) {                                    \
-                    return false;                                              \
-                }                                                              \
-            } else {                                                           \
+        for (; lhs && rhs; lhs = lhs->next, rhs = rhs->next) {                 \
+            if (lhs->val != rhs->val) {                                        \
                 return false;                                                  \
             }                                                                  \
         }                                                                      \
-        return true;                                                           \
+        return lhs == rhs;                                                     \
     }
 
 #define USING_MAKE_BINARY_TREE                                                 \
