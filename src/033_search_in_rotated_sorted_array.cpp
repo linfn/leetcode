@@ -41,7 +41,7 @@ inline namespace v1 {
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        return bsearch(target, nums, 0, nums.size() - 1);
+        return bsearch(target, nums, 0, int(nums.size()) - 1);
     }
 
 private:
