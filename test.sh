@@ -16,6 +16,7 @@ done
 
 if [ "$USE_LAST_FILE" == true ]; then
     files=$(ls -t src/*.cpp | head -1)
+    echo "test file: $files"
 elif [ $(($# - $OPTIND + 1)) -gt 0 ]; then
     files=${@:$OPTIND:$(($# - $OPTIND + 1))}
 else
@@ -23,6 +24,7 @@ else
 fi
 
 $CXX --std=c++14 -g -Wall $COVERAGE $BENCH -I. main.cpp $files -o a.out
+
 if [ -z "$COVERAGE" ]; then
     ./a.out
 else
