@@ -23,7 +23,7 @@ else
     files=src/*.cpp
 fi
 
-$CXX --std=c++14 -g -Wall $COVERAGE $BENCH -I. main.cpp $files -o a.out
+$CXX --std=c++14 -g -Wall $COVERAGE $BENCH -I include main.cpp $files -o a.out
 
 if [ -z "$COVERAGE" ]; then
     ./a.out
