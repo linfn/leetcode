@@ -10,4 +10,6 @@ branches:
 
 script:
   - ./test.sh -c
+
+after_success:
   - bash <(curl -s https://codecov.io/bash)
