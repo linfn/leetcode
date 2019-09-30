@@ -36,9 +36,6 @@ Example 4:
     Output: 0
 */
 
-#include <vector>
-#include <algorithm>
-
 #include "test.h"
 
 using std::lower_bound;

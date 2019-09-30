@@ -51,9 +51,6 @@ elements. for (int i = 0; i  < len; i++) { print(nums[i]);
     }
 */
 
-#include <vector>
-#include <algorithm>
-
 #include "test.h"
 
 using std::swap;

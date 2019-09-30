@@ -39,7 +39,6 @@ Example 2:
     Output:  "1211"
 */
 
-#include <string>
 #include <sstream>
 
 #include "test.h"

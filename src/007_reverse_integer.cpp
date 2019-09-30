@@ -32,8 +32,6 @@ this problem, assume that your function returns 0 when the reversed integer
 overflows.
 */
 
-#include <numeric>
-
 #include "test.h"
 
 using std::numeric_limits;

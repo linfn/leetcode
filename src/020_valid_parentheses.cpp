@@ -46,10 +46,6 @@ Example 5:
     Output: true
 */
 
-#include <string>
-#include <stack>
-#include <map>
-
 #include "test.h"
 
 using std::map;

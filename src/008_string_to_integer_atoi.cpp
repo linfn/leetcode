@@ -67,9 +67,6 @@ Example 5:
 signed integer. Thefore INT_MIN (−2^31) is returned.
 */
 
-#include <string>
-#include <map>
-#include <numeric>
 #include "test.h"
 
 using std::map;

@@ -19,7 +19,6 @@ Example:
     Explanation: 342 + 465 = 807.
 */
 
-#include <vector>
 #include "test.h"
 
 namespace add_two_numbers {

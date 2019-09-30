@@ -21,8 +21,6 @@ Example 2:
     Output:  "bb"
 */
 
-#include <string>
-#include <tuple>
 #include "test.h"
 
 using std::get;

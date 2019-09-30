@@ -28,8 +28,6 @@ Example 2:
     The median is (2 + 3)/2 = 2.5
 */
 
-#include <vector>
-#include <algorithm>
 #include "test.h"
 
 using std::sort;

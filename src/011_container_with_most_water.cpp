@@ -28,8 +28,6 @@ Example:
     Output: 49
 */
 
-#include <vector>
-#include <algorithm>
 #include "test.h"
 
 using std::vector;

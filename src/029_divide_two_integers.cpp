@@ -32,8 +32,6 @@ this problem, assume that your function returns 2^31 − 1 when the division
 result overflows.
 */
 
-#include <tuple>
-#include <limits>
 #include "test.h"
 
 using std::get;

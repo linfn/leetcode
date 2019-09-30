@@ -38,7 +38,6 @@ Note:
 Bonus points if you could solve it both recursively and iteratively.
 */
 
-#include <stack>
 #include "test.h"
 
 using std::stack;

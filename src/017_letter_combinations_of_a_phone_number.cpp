@@ -27,10 +27,7 @@ Although the above answer is in lexicographical order, your answer could be in
 any order you want.
 */
 
-#include <string>
-#include <vector>
-#include <map>
-#include <algorithm> // for test
+// for test
 
 #include "test.h"
 

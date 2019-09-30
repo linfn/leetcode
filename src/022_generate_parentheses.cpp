@@ -20,10 +20,6 @@ For example, given n = 3, a solution set is:
     ]
 */
 
-#include <vector>
-#include <string>
-#include <iostream>
-
 #include "test.h"
 
 using std::string;

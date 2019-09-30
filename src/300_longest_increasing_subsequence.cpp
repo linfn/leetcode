@@ -24,9 +24,6 @@ return the length.
 Follow up: Could you improve it to O( n log n ) time complexity?
 */
 
-#include <vector>
-#include <limits>
-
 #include "test.h"
 
 using std::numeric_limits;

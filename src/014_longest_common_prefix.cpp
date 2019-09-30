@@ -29,8 +29,6 @@ Note:
 All given inputs are in lowercase letters `a-z`.
 */
 
-#include <string>
-#include <vector>
 #include "test.h"
 
 using std::string;

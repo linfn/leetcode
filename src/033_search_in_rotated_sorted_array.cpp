@@ -29,7 +29,6 @@ Example 2:
     Output: -1
 */
 
-#include <vector>
 #include "test.h"
 
 using std::vector;

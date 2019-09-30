@@ -30,8 +30,6 @@ Example 2:
     Explanation: In this case, no transaction is done, i.e. max profit = 0.
 */
 
-#include <vector>
-
 #include "test.h"
 
 using std::vector;

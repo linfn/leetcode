@@ -22,8 +22,6 @@ Example 2:
     Explanation: The longest valid parentheses substring is "()()"
 */
 
-#include <string>
-#include <vector>
 #include "test.h"
 
 using std::string;

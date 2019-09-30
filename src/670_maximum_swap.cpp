@@ -28,8 +28,6 @@ Note:
   1. The given number is in the range [0, 108]
 */
 
-#include <vector>
-
 #include "test.h"
 
 using std::swap;

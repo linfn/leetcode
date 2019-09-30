@@ -2,10 +2,6 @@
 
 set -e
 
-if [ -z "$CXX" ]; then
-    CXX=clang++
-fi
-
 while getopts "blc" flag; do
     case "$flag" in
     b) BENCH="-DCATCH_CONFIG_ENABLE_BENCHMARKING" ;;
@@ -23,7 +19,7 @@ else
     files=src/*.cpp
 fi
 
-$CXX --std=c++14 -g -Wall $COVERAGE $BENCH -I include main.cpp $files -o a.out
+clang++ --std=c++14 -g -Wall $COVERAGE $BENCH -I include main.cpp $files -o a.out
 
 if [ -z "$COVERAGE" ]; then
     ./a.out

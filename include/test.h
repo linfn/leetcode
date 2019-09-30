@@ -4,6 +4,14 @@
 #include <vector>
 #include <memory>
 #include <functional>
+
+// common include
+#include <tuple>
+#include <map>
+#include <stack>
+#include <limits>
+#include <algorithm>
+
 #include "catch.hpp"
 
 #ifndef CATCH_CONFIG_ENABLE_BENCHMARKING

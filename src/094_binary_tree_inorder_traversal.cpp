@@ -21,10 +21,6 @@ Example:
 Follow up: Recursive solution is trivial, could you do it iteratively?
 */
 
-#include <vector>
-#include <stack>
-#include <tuple>
-
 #include "test.h"
 
 using std::stack;

@@ -29,7 +29,6 @@ Example:
        2     1         2                 3
 */
 
-#include <vector>
 #include "test.h"
 
 using std::vector;

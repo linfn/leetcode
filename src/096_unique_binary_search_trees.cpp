@@ -21,8 +21,6 @@ Example:
        2     1         2                 3
 */
 
-#include <vector>
-#include <map>
 #include "test.h"
 
 using std::map;

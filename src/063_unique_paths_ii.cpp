@@ -36,7 +36,6 @@ Example 1:
     2. Down -> Down -> Right -> Right
 */
 
-#include <vector>
 #include "test.h"
 
 using std::vector;

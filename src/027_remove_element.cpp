@@ -56,9 +56,6 @@ elements. for (int i = 0; i  < len; i++) { print(nums[i]);
     }
 */
 
-#include <algorithm>
-#include <vector>
-
 #include "test.h"
 
 using std::remove;

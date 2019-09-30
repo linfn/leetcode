@@ -19,8 +19,6 @@ Example:
     return [ 0 , 1 ].
 */
 
-#include <vector>
-#include <map>
 #include "test.h"
 
 using std::map;

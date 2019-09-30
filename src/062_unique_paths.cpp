@@ -37,10 +37,6 @@ Example 2:
     Output: 28
 */
 
-#include <map>
-#include <tuple>
-#include <vector>
-
 #include "test.h"
 
 using std::get;

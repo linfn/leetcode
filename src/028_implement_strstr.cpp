@@ -34,8 +34,6 @@ string. This is consistent to C's
 [indexOf()](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf\(java.lang.String\)).
 */
 
-#include <string>
-
 #include "test.h"
 
 using std::string;

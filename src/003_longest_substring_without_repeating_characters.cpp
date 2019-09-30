@@ -32,7 +32,6 @@ Example 3:
 subsequence and not a substring.
 */
 
-#include <string>
 #include <set>
 #include "test.h"
 

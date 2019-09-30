@@ -68,7 +68,6 @@ Example 5:
     Output: false
 */
 
-#include <string>
 #include <memory>
 #include "test.h"
 

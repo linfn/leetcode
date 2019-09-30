@@ -24,8 +24,6 @@ Example:
     ]
 */
 
-#include <vector>
-#include <algorithm>
 #include "test.h"
 
 using std::lower_bound;

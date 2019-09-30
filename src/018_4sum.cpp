@@ -26,9 +26,6 @@ Example:
     ]
 */
 
-#include <algorithm>
-#include <vector>
-
 #include "test.h"
 
 using std::sort;
@@ -63,7 +60,8 @@ private:
             result.insert(result.end(), subResult.begin(), subResult.end());
             do {
                 begin++;
-            } while(begin + (n - 1) < nums.size() && nums[begin] == nums[begin-1]);
+            } while (begin + (n - 1) < nums.size() &&
+                     nums[begin] == nums[begin - 1]);
         }
         return result;
     }

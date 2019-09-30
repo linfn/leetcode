@@ -65,8 +65,6 @@ Example 5:
     Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 */
 
-#include <string>
-#include <vector>
 #include "test.h"
 
 using std::string;
