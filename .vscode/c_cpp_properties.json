@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [
-                "CATCH_CONFIG_ENABLE_BENCHMARKING"
+                "CATCH_CONFIG_ENABLE_BENCHMARKING",
+                "ENABLE_DBG"
             ],
             "macFrameworkPath": [
                 "/System/Library/Frameworks",

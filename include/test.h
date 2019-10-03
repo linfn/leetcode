@@ -20,6 +20,10 @@
     _ = [&]()
 #endif
 
+#ifdef ENABLE_DBG
+#include "dbg.h"
+#endif
+
 namespace test {
 namespace detail {
 

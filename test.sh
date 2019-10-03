@@ -2,11 +2,12 @@
 
 set -e
 
-while getopts "blc" flag; do
+while getopts "blcd" flag; do
     case "$flag" in
     b) BENCH="-DCATCH_CONFIG_ENABLE_BENCHMARKING" ;;
     l) USE_LAST_FILE=true ;;
     c) COVERAGE="-fprofile-instr-generate -fcoverage-mapping" ;;
+    d) ENABLE_DBG="-DENABLE_DBG" ;;
     esac
 done
 
@@ -19,7 +20,7 @@ else
     files=src/*.cpp
 fi
 
-clang++ --std=c++14 -g -Wall $COVERAGE $BENCH -I include main.cpp $files -o a.out
+clang++ --std=c++14 -g -Wall $COVERAGE $BENCH $ENABLE_DBG -I include main.cpp $files -o a.out
 
 if [ -z "$COVERAGE" ]; then
     ./a.out
