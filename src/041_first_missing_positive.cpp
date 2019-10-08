@@ -48,7 +48,13 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
         for (int i = 0; i < nums.size(); i++) {
-            while (nums[i] != i + 1 && nums[i] > 0 && nums[i] <= nums.size()) {
+            while (nums[i] != i + 1) {
+                if (nums[i] <= 0 || nums[i] > nums.size()) {
+                    break;
+                }
+                if (nums[i] == nums[nums[i] - 1]) {
+                    break;
+                }
                 swap(nums[i], nums[nums[i] - 1]);
             }
         }
@@ -72,6 +78,9 @@ TEST_CASE("First Missing Positive") {
 
         v = {7, 8, 9, 11, 12};
         CHECK(firstMissingPositive(v) == 1);
+
+        v = {1, 1};
+        CHECK(firstMissingPositive(v) == 2);
     };
 }
 
