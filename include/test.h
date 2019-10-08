@@ -164,3 +164,24 @@ public:
         freeTree(tree->right);                                                 \
         delete tree;                                                           \
     }
+
+template <typename T>
+bool unorderedEqual(std::vector<T> l, std::vector<T> r) {
+    sort(l.begin(), l.end());
+    sort(r.begin(), r.end());
+    return l == r;
+}
+
+template <typename T>
+bool unorderedEqual(std::vector<std::vector<T>> l,
+                    std::vector<std::vector<T>> r) {
+    for (auto i = l.begin(); i != l.end(); i++) {
+        sort(i->begin(), i->end());
+    }
+    for (auto i = r.begin(); i != r.end(); i++) {
+        sort(i->begin(), i->end());
+    }
+    sort(l.begin(), l.end());
+    sort(r.begin(), r.end());
+    return l == r;
+}
