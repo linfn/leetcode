@@ -21,13 +21,9 @@ Example:
 
 #include "test.h"
 
-namespace add_two_numbers {
+using namespace leetcode;
 
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
+namespace add_two_numbers {
 
 inline namespace v1 {
 class Solution {
@@ -57,8 +53,6 @@ public:
     }
 };
 } // namespace v1
-
-USING_MAKE_LIST;
 
 TEST_CASE("Add Two Numbers") {
     using std::vector;

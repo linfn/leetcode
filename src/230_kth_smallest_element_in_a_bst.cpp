@@ -43,14 +43,9 @@ routine?
 
 #include "test.h"
 
-namespace kth_smallest_element_in_a_bst {
+using namespace leetcode;
 
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
+namespace kth_smallest_element_in_a_bst {
 
 inline namespace v1 {
 class Solution {
@@ -80,14 +75,12 @@ private:
 };
 } // namespace v1
 
-USING_MAKE_BINARY_TREE;
-
 TEST_CASE("Kth Smallest Element in a BST") {
     TEST_SOLUTION(kthSmallest, v1) {
-        CHECK(kthSmallest(makeBT({3, 1, 4, 0, 2}), 1) == 1);
-        CHECK(kthSmallest(makeBT({5, 3, 6, 2, 4, 0, 0, 1}), 3) == 3);
+        CHECK(kthSmallest(makeTree({3, 1, 4, 0, 2}), 1) == 1);
+        CHECK(kthSmallest(makeTree({5, 3, 6, 2, 4, 0, 0, 1}), 3) == 3);
 
-        auto t = makeBT({5, 3, 6, 2, 4, 0, 0, 1});
+        auto t = makeTree({5, 3, 6, 2, 4, 0, 0, 1});
         BENCHMARK("") { return kthSmallest(t, 3); };
         freeTree(t);
     };

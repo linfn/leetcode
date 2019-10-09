@@ -17,13 +17,9 @@ Example:
 
 #include "test.h"
 
-namespace merge_two_sorted_lists {
+using namespace leetcode;
 
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
+namespace merge_two_sorted_lists {
 
 inline namespace v1 {
 class Solution {
@@ -53,8 +49,6 @@ public:
     }
 };
 } // namespace v1
-
-USING_MAKE_LIST;
 
 TEST_CASE("Merge Two Sorted Lists") {
     TEST_SOLUTION(mergeTwoLists, v1) {

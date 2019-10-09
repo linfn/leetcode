@@ -31,16 +31,10 @@ Example:
 
 #include "test.h"
 
+using namespace leetcode;
 using std::vector;
 
 namespace unique_binary_search_trees_ii {
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
 inline namespace v1 {
 /*

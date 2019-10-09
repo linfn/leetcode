@@ -23,17 +23,11 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 #include "test.h"
 
+using namespace leetcode;
 using std::stack;
 using std::vector;
 
 namespace binary_tree_inorder_traversal {
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
 namespace v1 {
 // NOTE: 题目要求用迭代而不是递归, 所以 v1 方案不符合要求
@@ -135,16 +129,14 @@ public:
 };
 } // namespace v3
 
-USING_MAKE_BINARY_TREE;
-
 TEST_CASE("Binary Tree Inorder Traversal") {
     TEST_SOLUTION(inorderTraversal, v1, v2, v3) {
-        CHECK(inorderTraversal(makeBT({})) == vector<int>{});
-        CHECK(inorderTraversal(makeBT({3, 1, 2})) == vector<int>{1, 3, 2});
-        CHECK(inorderTraversal(makeBT({3, 2, 4, 1, 0, 0, 5})) ==
+        CHECK(inorderTraversal(makeTree({})) == vector<int>{});
+        CHECK(inorderTraversal(makeTree({3, 1, 2})) == vector<int>{1, 3, 2});
+        CHECK(inorderTraversal(makeTree({3, 2, 4, 1, 0, 0, 5})) ==
               vector<int>{1, 2, 3, 4, 5});
 
-        auto t = makeBT({3, 2, 4, 1, 0, 0, 5});
+        auto t = makeTree({3, 2, 4, 1, 0, 0, 5});
         BENCHMARK("") { return inorderTraversal(t); };
         freeTree(t);
     };

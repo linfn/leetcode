@@ -22,16 +22,11 @@ Example:
 
 #include "test.h"
 
+using namespace leetcode;
 using std::remove;
 using std::vector;
 
 namespace merge_k_sorted_lists {
-
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
 
 /*
     主要思路就是每一次都取剩余链表中头中小的那一个.
@@ -109,8 +104,6 @@ public:
 } // namespace v2
 
 // TODO 还可以使用分治的方式, 时间复杂度和 v2 相同, 均为 O(N*logk)
-
-USING_MAKE_LIST;
 
 TEST_CASE("Merge k Sorted Lists") {
     TEST_SOLUTION(mergeKLists, v1, v2) {

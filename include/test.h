@@ -98,72 +98,88 @@ public:
 #define SOLUTIONS_5(F, V1, V2, V3, V4, V5)                                     \
     SOLUTIONS_4(F, V1, V2, V3, V4), SOLUTIONS_1(F, V5)
 
-#define USING_MAKE_LIST                                                        \
-    ListNode* makeList(const std::vector<int>& vals) {                         \
-        ListNode *l = nullptr, *cur = nullptr;                                 \
-        for (auto v : vals) {                                                  \
-            auto n = new ListNode(v);                                          \
-            if (l == nullptr) {                                                \
-                l = n;                                                         \
-            } else {                                                           \
-                cur->next = n;                                                 \
-            }                                                                  \
-            cur = n;                                                           \
-        }                                                                      \
-        return l;                                                              \
-    }                                                                          \
-    void freeList(ListNode* l) {                                               \
-        while (l) {                                                            \
-            auto next = l->next;                                               \
-            delete l;                                                          \
-            l = next;                                                          \
-        }                                                                      \
-    }                                                                          \
-    bool listEqual(ListNode* lhs, ListNode* rhs) {                             \
-        if (lhs == rhs) {                                                      \
-            return true;                                                       \
-        }                                                                      \
-        for (; lhs && rhs; lhs = lhs->next, rhs = rhs->next) {                 \
-            if (lhs->val != rhs->val) {                                        \
-                return false;                                                  \
-            }                                                                  \
-        }                                                                      \
-        return lhs == rhs;                                                     \
-    }
+namespace leetcode {
 
-#define USING_MAKE_BINARY_TREE                                                 \
-    TreeNode* makeBT(const std::vector<int>& vals, int nil = 0) {              \
-        if (vals.empty()) {                                                    \
-            return nullptr;                                                    \
-        }                                                                      \
-        auto root = new TreeNode(vals.front());                                \
-        auto list = std::vector<TreeNode*>{root};                              \
-        for (auto i = vals.begin();;) {                                        \
-            auto parent = list.front();                                        \
-            list.erase(list.begin());                                          \
-            i++;                                                               \
-            if (i == vals.end()) {                                             \
-                break;                                                         \
-            }                                                                  \
-            parent->left = *i != nil ? new TreeNode(*i) : nullptr;             \
-            list.push_back(parent->left);                                      \
-            i++;                                                               \
-            if (i == vals.end()) {                                             \
-                break;                                                         \
-            }                                                                  \
-            parent->right = *i != nil ? new TreeNode(*i) : nullptr;            \
-            list.push_back(parent->right);                                     \
-        }                                                                      \
-        return root;                                                           \
-    }                                                                          \
-    void freeTree(TreeNode* tree) {                                            \
-        if (!tree) {                                                           \
-            return;                                                            \
-        }                                                                      \
-        freeTree(tree->left);                                                  \
-        freeTree(tree->right);                                                 \
-        delete tree;                                                           \
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+static inline ListNode* makeList(const std::vector<int>& vals) {
+    ListNode *l = nullptr, *cur = nullptr;
+    for (auto v : vals) {
+        auto n = new ListNode(v);
+        if (l == nullptr) {
+            l = n;
+        } else {
+            cur->next = n;
+        }
+        cur = n;
     }
+    return l;
+}
+
+static inline void freeList(ListNode* l) {
+    while (l) {
+        auto next = l->next;
+        delete l;
+        l = next;
+    }
+}
+
+static inline bool listEqual(ListNode* lhs, ListNode* rhs) {
+    if (lhs == rhs) {
+        return true;
+    }
+    for (; lhs && rhs; lhs = lhs->next, rhs = rhs->next) {
+        if (lhs->val != rhs->val) {
+            return false;
+        }
+    }
+    return lhs == rhs;
+}
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+static inline TreeNode* makeTree(const std::vector<int>& vals, int nil = 0) {
+    if (vals.empty()) {
+        return nullptr;
+    }
+    auto root = new TreeNode(vals.front());
+    auto list = std::vector<TreeNode*>{root};
+    for (auto i = vals.begin();;) {
+        auto parent = list.front();
+        list.erase(list.begin());
+        i++;
+        if (i == vals.end()) {
+            break;
+        }
+        parent->left = *i != nil ? new TreeNode(*i) : nullptr;
+        list.push_back(parent->left);
+        i++;
+        if (i == vals.end()) {
+            break;
+        }
+        parent->right = *i != nil ? new TreeNode(*i) : nullptr;
+        list.push_back(parent->right);
+    }
+    return root;
+}
+
+static inline void freeTree(TreeNode* tree) {
+    if (!tree) {
+        return;
+    }
+    freeTree(tree->left);
+    freeTree(tree->right);
+    delete tree;
+}
 
 template <typename T>
 bool unorderedEqual(std::vector<T> l, std::vector<T> r) {
@@ -185,3 +201,5 @@ bool unorderedEqual(std::vector<std::vector<T>> l,
     sort(r.begin(), r.end());
     return l == r;
 }
+
+} // namespace leetcode

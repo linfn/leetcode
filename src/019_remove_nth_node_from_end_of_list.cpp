@@ -30,15 +30,10 @@ Could you do this in one pass?
 
 #include "test.h"
 
+using namespace leetcode;
 using std::deque;
 
 namespace remove_nth_node_from_end_of_list {
-
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
 
 namespace v1 {
 class Solution {
@@ -84,8 +79,6 @@ public:
     }
 };
 } // namespace v2
-
-USING_MAKE_LIST;
 
 TEST_CASE("Remove Nth Node From End of List") {
     TEST_SOLUTION(removeNthFromEnd, v1, v2) {

@@ -40,16 +40,10 @@ Bonus points if you could solve it both recursively and iteratively.
 
 #include "test.h"
 
+using namespace leetcode;
 using std::stack;
 
 namespace symmetric_tree {
-
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
 inline namespace v1 {
 class Solution {
@@ -105,14 +99,12 @@ public:
 };
 } // namespace v2
 
-USING_MAKE_BINARY_TREE;
-
 TEST_CASE("Symmetric Tree") {
     TEST_SOLUTION(isSymmetric, v1, v2) {
-        CHECK(isSymmetric(makeBT({1, 2, 2, 3, 4, 4, 3})));
-        CHECK_FALSE(isSymmetric(makeBT({1, 2, 2, 0, 3, 0, 3})));
+        CHECK(isSymmetric(makeTree({1, 2, 2, 3, 4, 4, 3})));
+        CHECK_FALSE(isSymmetric(makeTree({1, 2, 2, 0, 3, 0, 3})));
 
-        auto t = makeBT({1, 2, 2, 3, 4, 4, 3});
+        auto t = makeTree({1, 2, 2, 3, 4, 4, 3});
         BENCHMARK("") { return isSymmetric(t); };
         freeTree(t);
     };

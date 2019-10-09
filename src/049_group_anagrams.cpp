@@ -62,6 +62,8 @@ public:
 
 TEST_CASE("Group Anagrams") {
     TEST_SOLUTION(groupAnagrams, v1) {
+        using leetcode::unorderedEqual;
+
         vector<string> v = {"eat", "tea", "tan", "ate", "nat", "bat"};
         CHECK(unorderedEqual(groupAnagrams(v),
                              vector<vector<string>>{{"ate", "eat", "tea"},
