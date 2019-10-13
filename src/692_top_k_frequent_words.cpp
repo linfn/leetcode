@@ -38,7 +38,6 @@ Follow up:
   1. Try to solve it in O ( n log k ) time and O ( n ) extra space.
 */
 
-#include <unordered_map>
 #include "test.h"
 
 using std::string;

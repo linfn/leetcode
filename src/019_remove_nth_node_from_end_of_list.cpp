@@ -26,8 +26,6 @@ Follow up:
 Could you do this in one pass?
 */
 
-#include <deque>
-
 #include "test.h"
 
 using namespace leetcode;

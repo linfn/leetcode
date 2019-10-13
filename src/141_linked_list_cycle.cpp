@@ -50,7 +50,6 @@ Follow up:
 Can you solve it using O(1) (i.e. constant) memory?
 */
 
-#include <unordered_map>
 #include "test.h"
 
 using namespace leetcode;

@@ -24,8 +24,6 @@ Note:
   * The order of your output does not matter.
 */
 
-#include <unordered_map>
-
 #include "test.h"
 
 using std::move;

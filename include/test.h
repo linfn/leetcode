@@ -8,7 +8,10 @@
 // common include
 #include <tuple>
 #include <map>
+#include <unordered_map>
 #include <stack>
+#include <list>
+#include <deque>
 #include <limits>
 #include <algorithm>
 

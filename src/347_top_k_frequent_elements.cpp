@@ -26,7 +26,6 @@ Note:
 is the array 's size.
 */
 
-#include <unordered_map>
 #include "test.h"
 
 using std::vector;

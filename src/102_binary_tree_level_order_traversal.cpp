@@ -32,7 +32,6 @@ return its level order traversal as:
     ]
 */
 
-#include <deque>
 #include "test.h"
 
 using namespace leetcode;
