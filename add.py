@@ -72,8 +72,12 @@ content = re.sub(r'(Example(?: \d)?):\s*\n', '\g<1>:\n\n', content)
 
 snippet = next(snip['code']
                for snip in question['codeSnippets'] if snip['langSlug'] == 'cpp')
-test_method = re.search(
-    r'Solution(?:.|\n)*\S+\s+(\S+)\s*\(.*?\)', snippet).group(1)
+
+test_method = None
+solutionMatch = re.search(
+    r'Solution(?:.|\n)*\S+\s+(\S+)\s*\(.*?\)', snippet)
+if solutionMatch:
+    test_method = solutionMatch.group(1)
 
 
 template = f"""
@@ -96,11 +100,9 @@ inline namespace v1 {{
 }} // namespace v1
 
 TEST_CASE("{question['title']}") {{
-    TEST_SOLUTION({test_method}, v1) {{
+    {f'TEST_SOLUTION({test_method}, v1) {{' if test_method else ''}
         {f"/*{question['sampleTestCase']}*/"}
-
-        BENCHMARK(""){{}};
-    }};
+    {'};' if test_method else ''}
 }}
 
 }} // namespace {title_symbol}
