@@ -20,7 +20,7 @@ else
     files=src/*.cpp
 fi
 
-clang++ --std=c++14 -g -Wall $COVERAGE $BENCH $ENABLE_DBG -I include main.cpp $files -o a.out
+clang++ --std=c++17 -g -Wall $COVERAGE $BENCH $ENABLE_DBG -I include main.cpp $files -o a.out
 
 if [ -z "$COVERAGE" ]; then
     ./a.out
