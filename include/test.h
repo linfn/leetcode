@@ -184,6 +184,19 @@ static inline void freeTree(TreeNode* tree) {
     delete tree;
 }
 
+static inline bool treeEqual(TreeNode* lhs, TreeNode* rhs) {
+    if (!lhs || !rhs) {
+        if (!lhs && !rhs) {
+            return true;
+        }
+        return false;
+    }
+    if (lhs->val != rhs->val) {
+        return false;
+    }
+    return treeEqual(lhs->left, rhs->left) && treeEqual(lhs->right, rhs->right);
+}
+
 template <typename T>
 bool unorderedEqual(std::vector<T> l, std::vector<T> r) {
     sort(l.begin(), l.end());
