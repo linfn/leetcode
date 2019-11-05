@@ -16,7 +16,7 @@ Example 1:
 
     Input:  "A man, a plan, a canal: Panama"
     Output: true
-    
+
 
 Example 2:
 
@@ -26,6 +26,8 @@ Example 2:
 
 #include "test.h"
 
+using std::string;
+
 namespace valid_palindrome {
 
 inline namespace v1 {
@@ -33,13 +35,14 @@ class Solution {
 public:
     bool isPalindrome(string s) {
         auto isAlphanumeric = [](char c) {
-            return ('A' <= c  && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c && c <= '9');
+            return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') ||
+                   ('0' <= c && c <= '9');
         };
-        for (int i = 0, j = s.length() - 1; ; i++, j--) {
-            while(!isAlphanumeric(s[i]) && i < j) {
+        for (int i = 0, j = s.length() - 1;; i++, j--) {
+            while (!isAlphanumeric(s[i]) && i < j) {
                 i++;
             }
-            while(!isAlphanumeric(s[j]) && i < j) {
+            while (!isAlphanumeric(s[j]) && i < j) {
                 j--;
             }
             if (i >= j) {
