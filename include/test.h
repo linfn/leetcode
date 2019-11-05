@@ -163,14 +163,22 @@ static inline TreeNode* makeTree(const std::vector<int>& vals, int nil = 0) {
         if (i == vals.end()) {
             break;
         }
-        parent->left = *i != nil ? new TreeNode(*i) : nullptr;
-        list.push_back(parent->left);
+        if (parent) {
+            parent->left = *i != nil ? new TreeNode(*i) : nullptr;
+            list.push_back(parent->left);
+        } else {
+            list.push_back(nullptr);
+        }
         i++;
         if (i == vals.end()) {
             break;
         }
-        parent->right = *i != nil ? new TreeNode(*i) : nullptr;
-        list.push_back(parent->right);
+        if (parent) {
+            parent->right = *i != nil ? new TreeNode(*i) : nullptr;
+            list.push_back(parent->right);
+        } else {
+            list.push_back(nullptr);
+        }
     }
     return root;
 }
